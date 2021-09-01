@@ -46,6 +46,7 @@ const routerConfig = [
       {
         path: "/",
         exact: true,
+        name: '首頁',
         component: (props) => {
           return (
             <Fragment>
@@ -58,6 +59,7 @@ const routerConfig = [
       },
       {
         path: "/news",
+        name: '最新消息',
         component: () => {
           return (
             <Fragment>

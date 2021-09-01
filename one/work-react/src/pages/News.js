@@ -3,7 +3,7 @@ import React from 'react'
 export default function News() {
     return (
         <div>
-            News
+            最新消息
         </div>
     );
 }
