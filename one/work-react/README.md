@@ -1,4 +1,4 @@
-## *使用技術:*
+## 使用技術:
 React
 react-dom
 react-router
