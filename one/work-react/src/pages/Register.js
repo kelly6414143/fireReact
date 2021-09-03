@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import InputItem from "../components/InputItem"
+import InputItem from "../components/InputItem/InputItem"
 
 export default function Register() {
 
@@ -9,7 +9,11 @@ export default function Register() {
 
     const onSumit = () => {
         fetch('/api/register', {
-            method: 'post', body: JSON.stringify({
+            headers: {
+                "Content-Type": "application/json"
+            },
+            method: 'post',
+            body: JSON.stringify({
                 username: username,
                 password: comfirmPassword
             }),
@@ -29,12 +33,14 @@ export default function Register() {
                 type="text"
                 required={true}
                 onChange={(val) => setUsername(val)}
+                valid={{msg:'錯囉', testVal: /ab+c/}}
             />
             <InputItem
                 label="密碼"
                 type="password"
                 required={true}
                 onChange={(val) => setPassword(val)}
+                valid={{msg:'', testVal: /ab+c/}}
             />
             <InputItem
                 label="確認密碼"

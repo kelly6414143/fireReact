@@ -1,0 +1,21 @@
+input {
+    outline: 0;
+}
+
+.input_item {
+    margin: 15px 0;
+}
+
+.input_item.flex-row {
+    display: flex;
+    align-items: flex-start;
+}
+
+.input_item .input_label {
+    min-width: 80px;
+}
+
+.input_item .input_value {
+    display: flex;
+    flex-direction: column;
+}
