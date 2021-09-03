@@ -19,17 +19,17 @@
 .header-wrapper .header-list {
     min-width: 80px;
     list-style-type: none;
-    padding: 5px 10px;
     margin: 0px 2px;
     border: 1px solid #999;
     border-radius: 5px;
     text-align: center;
-    /* margin: 10px; */
 }
 
 .header-wrapper .header-list a{
+    display: block;
     text-decoration: none;
     color: #333;
+    padding: 5px 10px;
 }
 
 

@@ -1,5 +1,6 @@
 import { Route } from "react-router-dom";
 import RouterGuard from './routerGuard'
+import tools from '../tools/index'
 
 const renderRoutesMap = (routes) => (
     routes.map((route, index) => {

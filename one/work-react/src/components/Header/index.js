@@ -7,9 +7,9 @@ export default function Header({ routes }) {
     <div className="header-wrapper">
       <header className="header-logo">LOGO</header>
       <ul className="flex-row">
-        {routes.map((route) => {
+        {routes.map((route, i) => {
           return (
-            <li className="header-list">
+            <li className="header-list" key={i}>
               <Link to={route.path}>{route.name}</Link>
             </li>
           );

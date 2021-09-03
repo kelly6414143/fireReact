@@ -31,6 +31,18 @@ const routerConfig = [
       );
     },
   },
+  // {
+  //   path: "/notFound",
+  //   component: () => {
+  //     return (
+  //       <Fragment>
+  //         <Suspense fallback={<p>Loading~~~~</p>}>
+  //           <div>找不到頁面</div>
+  //         </Suspense>
+  //       </Fragment>
+  //     );
+  //   },
+  // },
   {
     path: "/",
     component: (props) => {
@@ -73,7 +85,8 @@ const routerConfig = [
     ],
   },
   {
-    path: "*",
+    path: "/*",
+    name: '404',
     component: () => {
       return (
         <Fragment>

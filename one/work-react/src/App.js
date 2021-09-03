@@ -2,7 +2,8 @@ import {
   BrowserRouter as Router,
   Switch
 } from "react-router-dom";
-import routes from "./route/routerConfig";
+// import routes from "./route/routerConfig";
+import Route from './route/index'
 import tools from './tools/index'
 import './App.css';
 
@@ -15,18 +16,21 @@ function App() {
   // })
 
   return (
-    <Router>
-      <div>
-        <Switch>
-          {routes.map((route, i) => {
-            console.log('routeapp', route)
-            return (
-              <tools.RouteWithSubRoutes key={i} {...route} />
-            )
-          })}
-        </Switch>
-      </div>
-    </Router>
+    <>
+      <Route/>
+    </>
+    // <Router>
+    //   <div>
+    //     <Switch>
+    //       {routes.map((route, i) => {
+    //         console.log('routeapp', route)
+    //         return (
+    //           <tools.RouteWithSubRoutes key={i} {...route} />
+    //         )
+    //       })}
+    //     </Switch>
+    //   </div>
+    // </Router>
   );
 }
 

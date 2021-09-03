@@ -3,6 +3,8 @@ import { withRouter } from 'react-router-dom'
 // import Loadable from 'react-loadable'
 // import { connect } from 'react-redux'
 import renderRoutesMap from './renderRoutesMap'
+import tools from '../tools/index'
+
 const mapStateToProps = state => (state)
 const mapDispatchToProps = dispatch => ({ ...dispatch })
 class RouterGuard extends Component {
@@ -11,23 +13,18 @@ class RouterGuard extends Component {
     }
     componentWillMount() {
         const a = true
-        let { history: { replace }, authorization, location } = this.props
+        let { history: { replace }, authorization, location, name } = this.props
         if (a) replace('./register')
-        // if (location.pathname === '/') replace('./register')
+        // if (name == '404') replace('./notFound')
         console.log('路由跳轉前的攔截', this.props)
     }
     render() {
-        let { component, routes = [] } = this.props
+        let { routes = [], location, path, route } = this.props
+        
         console.log('準備渲染compoent前', this.props)
-        const LoadableComponent = {
-            loader: () => import(`../${component}`),
-            loading: () => (
-                <span>11111</span>
-            )
-        }
         return (
             <div>
-                <LoadableComponent {...this.props} />
+                <tools.RouteWithSubRoutes {...this.props} />
                 {renderRoutesMap(routes)}
             </div>
         )
