@@ -2,13 +2,17 @@ input {
     outline: 0;
 }
 
+input::placeholder{
+    color: #aaa;
+}
+
 .input_item {
-    margin: 15px 0;
+    margin: 30px 0;
 }
 
 .input_item.flex-row {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
 }
 
 .input_item .input_label {
@@ -16,6 +20,25 @@ input {
 }
 
 .input_item .input_value {
+    position: relative;
     display: flex;
     flex-direction: column;
 }
+
+.input_item .valid_msg {
+    position: absolute;
+    top: 40px;
+    left: 0;
+    color: #FF0000;
+    font-size: 12px;
+}
+
+.input_item .icon_word{
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translate(0, -50%);
+    color: rgb(98, 160, 211);
+    font-size: 12px;
+}
+
