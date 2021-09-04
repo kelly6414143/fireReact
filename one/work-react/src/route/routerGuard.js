@@ -12,16 +12,33 @@ class RouterGuard extends Component {
         super()
     }
     componentWillMount() {
-        const a = true
-        let { history: { replace }, authorization, location, name } = this.props
-        if (a) replace('./register')
+        let { history: { replace }, authorization, location, name, isPrivate } = this.props
+        if (!sessionStorage['userToken']) replace('./login')
+        console.log('routerGuard', name, isPrivate )
+        if(isPrivate){
+            fetch('/api/authentication', {
+                headers: {
+                    "AUTHENTICATION_TOKEN": sessionStorage['userToken']
+                }
+            }).then(res => {
+                return res.json()
+            }).then(res=>{
+                console.log('res',res)
+                if(!res.success){
+                    sessionStorage.removeItem('userToken')
+                }
+            }).catch(err => {
+                console.error('err', err)
+                sessionStorage.removeItem('userToken')
+            })
+        }
         // if (name == '404') replace('./notFound')
-        console.log('路由跳轉前的攔截', this.props)
+        // console.log('路由跳轉前的攔截', this.props)
     }
     render() {
         let { routes = [], location, path, route } = this.props
         
-        console.log('準備渲染compoent前', this.props)
+        // console.log('準備渲染compoent前', this.props)
         return (
             <div>
                 <tools.RouteWithSubRoutes {...this.props} />

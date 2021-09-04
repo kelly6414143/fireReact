@@ -9,11 +9,11 @@ const Login = lazy(() => import("../pages/Login"));
 const routerConfig = [
   {
     path: "/register",
-    component: () => {
+    component: (props) => {
       return (
         <Fragment>
           <Suspense fallback={<p>Loading~~~~</p>}>
-            <Register />
+            <Register {...props}/>
           </Suspense>
         </Fragment>
       );
@@ -21,11 +21,11 @@ const routerConfig = [
   },
   {
     path: "/login",
-    component: () => {
+    component: (props) => {
       return (
         <Fragment>
           <Suspense fallback={<p>Loading~~~~</p>}>
-            <Login />
+            <Login {...props}/>
           </Suspense>
         </Fragment>
       );
@@ -59,6 +59,7 @@ const routerConfig = [
         path: "/",
         exact: true,
         name: '首頁',
+        isPrivate: true,
         component: (props) => {
           return (
             <Fragment>
@@ -72,6 +73,7 @@ const routerConfig = [
       {
         path: "/news",
         name: '最新消息',
+        isPrivate: true,
         component: () => {
           return (
             <Fragment>
