@@ -13,7 +13,7 @@ class RouterGuard extends Component {
     }
     componentWillMount() {
         let { history: { replace }, authorization, location, name, isPrivate } = this.props
-        if (!sessionStorage['userToken']) replace('./login')
+        if (isPrivate && !sessionStorage['userToken']) replace('./login')
         console.log('routerGuard', name, isPrivate )
         if(isPrivate){
             fetch('/api/authentication', {
@@ -26,6 +26,7 @@ class RouterGuard extends Component {
                 console.log('res',res)
                 if(!res.success){
                     sessionStorage.removeItem('userToken')
+                    replace('./login')
                 }
             }).catch(err => {
                 console.error('err', err)

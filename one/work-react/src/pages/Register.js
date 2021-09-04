@@ -123,6 +123,7 @@ export default function Register(props) {
                 valid={{ msg: '與密碼不同', testVal: formObject?.vaildator?.['password'], isValid: formObject?.error?.['comfirmPassword'] }}
                 onBlur={(val) => onCheckComfirmPassword(val)}
             />
+            <span onClick={()=> history.push('./login')}>登入</span>
             <button onClick={onSubmit}>註冊</button>
         </div>
     );
