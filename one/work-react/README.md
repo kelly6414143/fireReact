@@ -1,9 +1,8 @@
+## 文檔網址: 
+[進入文檔網址](https://hackmd.io/LUZd8aLlRKGfaotpTYFZPA?view)
+
 ## 使用技術:
-React
-react-dom
-react-router
-react-router-dom
-tailwindcss
+React, react-dom, react-router, react-router-dom, tailwindcss
 
 ## 進度
 
