@@ -140,18 +140,18 @@ export default function Register(props) {
             <div className="flex flex-col justify-center">
                 <span
                     className="text-blue-500 m-1 text-center cursor-pointer underline"
+                    style={{textUnderlinePosition: 'under'}}
                     onClick={() => history.push('./login')}
                 >
                     登入
                 </span>
                 <button
                     onClick={onSubmit}
-                    className=" bg-blue-500 rounded-lg px-3 py-1 m-1 text-white"
+                    className="bg-blue-500 rounded-lg px-3 py-1 m-1 text-white"
                 >
                     註冊
                 </button>
             </div>
-
         </div>
     );
 }
