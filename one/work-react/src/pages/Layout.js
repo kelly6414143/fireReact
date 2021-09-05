@@ -1,14 +1,12 @@
 import React, { useEffect } from "react";
-import { Switch } from "react-router-dom";
 import Header from "../components/Header/index";
-import tools from "../tools/index";
 
 export default function Wrapper(props) {
   const { routes, history } = props;
 
-  useEffect(() => {
-    console.log(history)
-  })
+  // useEffect(() => {
+  //   console.log(history)
+  // })
 
   return (
     <div>

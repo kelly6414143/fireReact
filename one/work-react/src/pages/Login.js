@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react"
 import InputItem from "../components/InputItem/InputItem"
+import toast from "../components/Toast/Toast"
 
 export default function Login(props) {
 
@@ -36,13 +37,16 @@ export default function Login(props) {
         }).then(res => {
             return res.json()
         }).then(res=>{
-            console.log('res',res)
             if(res.success){
+                toast.success(res.message)
                 sessionStorage.setItem('userToken', res.token)
                 history.push('./')
+            }else {
+                toast.error(res.message)
             }
         }).catch(err => {
             console.error('err', err)
+            toast.error(err.message)
             sessionStorage.removeItem('userToken')
         })
     }

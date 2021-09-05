@@ -4,17 +4,17 @@ import { withRouter } from 'react-router-dom'
 // import { connect } from 'react-redux'
 import renderRoutesMap from './renderRoutesMap'
 import tools from '../tools/index'
+import toast from "../components/Toast/Toast"
 
-const mapStateToProps = state => (state)
-const mapDispatchToProps = dispatch => ({ ...dispatch })
+// const mapStateToProps = state => (state)
+// const mapDispatchToProps = dispatch => ({ ...dispatch })
 class RouterGuard extends Component {
     constructor(props) {
         super()
     }
     componentWillMount() {
-        let { history: { replace }, authorization, location, name, isPrivate } = this.props
+        let { history: { replace }, isPrivate } = this.props
         if (isPrivate && !sessionStorage['userToken']) replace('./login')
-        console.log('routerGuard', name, isPrivate )
         if(isPrivate){
             fetch('/api/authentication', {
                 headers: {
@@ -23,13 +23,16 @@ class RouterGuard extends Component {
             }).then(res => {
                 return res.json()
             }).then(res=>{
-                console.log('res',res)
-                if(!res.success){
+                if(res.success){
+                    toast.success(res.message)
+                }else{
                     sessionStorage.removeItem('userToken')
+                    toast.error(res.message)
                     replace('./login')
                 }
             }).catch(err => {
                 console.error('err', err)
+                toast.error(err.message)
                 sessionStorage.removeItem('userToken')
             })
         }

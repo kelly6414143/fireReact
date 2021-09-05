@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react"
 import InputItem from "../components/InputItem/InputItem"
+import toast from "../components/Toast/Toast"
 
 export default function Register(props) {
 
@@ -39,11 +40,18 @@ export default function Register(props) {
                 password: formObject.data.password
             }),
         }).then(res => {
-            if(res.status === 200){
+            return res.json()
+        }).then(res=>{
+            console.log('res',res)
+            if(res.success){
                 onLogin(formObject.data)
+                toast.success(res.message)
+            }else{
+                toast.error(res.message)
             }
         }).catch(err => {
             console.error('err', err)
+            toast.error(err.message)
             sessionStorage.removeItem('userToken')
         })
     }
@@ -65,9 +73,13 @@ export default function Register(props) {
             if(res.success){
                 sessionStorage.setItem('userToken', res.token)
                 history.push('./')
+                toast.success(res.message)
+            }else{
+                toast.error(res.message)
             }
         }).catch(err => {
             console.error('err', err)
+            toast.error(err.message)
             sessionStorage.removeItem('userToken')
         })
     }
