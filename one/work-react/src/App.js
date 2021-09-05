@@ -1,10 +1,4 @@
-import {
-  BrowserRouter as Router,
-  Switch
-} from "react-router-dom";
-// import routes from "./route/routerConfig";
 import Route from './route/index'
-import tools from './tools/index'
 import './App.css';
 
 

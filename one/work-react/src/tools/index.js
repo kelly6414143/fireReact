@@ -1,7 +1,7 @@
 import { Route } from "react-router-dom";
 
 function RouteWithSubRoutes(route) {
-    console.log('RouteWithSubRoutes', route)
+    // console.log('RouteWithSubRoutes', route)
     return (
         <Route
             path={route.path}
