@@ -4,7 +4,7 @@ import toast from "../components/Toast/Toast"
 
 export default function Login(props) {
 
-    const {history} = props
+    const { history } = props
     const [formObject, setFormObject] = useState({})
 
     useEffect(() => {
@@ -36,12 +36,12 @@ export default function Login(props) {
             }),
         }).then(res => {
             return res.json()
-        }).then(res=>{
-            if(res.success){
+        }).then(res => {
+            if (res.success) {
                 toast.success(res.message)
                 sessionStorage.setItem('userToken', res.token)
                 history.push('./')
-            }else {
+            } else {
                 toast.error(res.message)
             }
         }).catch(err => {
@@ -69,27 +69,35 @@ export default function Login(props) {
     }
 
     return (
-        <div>
-            <header>登入</header>
-            <InputItem
-                label="帳號"
-                type="text"
-                required={true}
-                placeholder={'必須是信箱'}
-                onChange={(val) => setFormObject({ ...formObject, data: { ...formObject.data, username: val } })}
-                valid={{ msg: '必須是信箱', testVal: formObject?.vaildator?.['username'], isValid: formObject?.error?.['username'] }}
-            />
-            <InputItem
-                label="密碼"
-                type="password"
-                required={true}
-                hasIcon={true}
-                placeholder={'4-8字元；首尾必須是英文；中間必須是數字'}
-                onChange={(val) => setFormObject({ ...formObject, data: { ...formObject.data, password: val } })}
-                valid={{ msg: '4-8字元；首尾必須是英文；中間必須是數字', testVal: formObject?.vaildator?.['password'], isValid: formObject?.error?.['password'] }}
-            />
-            <span onClick={()=> history.push('./register')}>註冊</span>
-            <button onClick={onSubmit}>登入</button>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-6 mx-auto bg-white rounded-xl shadow-lg items-center max-w-1/2 flex flex-col justify-start">
+            <header className="text-center text-xl font-bold">登入</header>
+            <section className="mb-4 mt-6">
+                <InputItem
+                    label="帳號"
+                    type="text"
+                    required={true}
+                    placeholder={'必須是信箱'}
+                    onChange={(val) => setFormObject({ ...formObject, data: { ...formObject.data, username: val } })}
+                    valid={{ msg: '必須是信箱', testVal: formObject?.vaildator?.['username'], isValid: formObject?.error?.['username'] }}
+                />
+                <InputItem
+                    label="密碼"
+                    type="password"
+                    required={true}
+                    hasIcon={true}
+                    placeholder={'4-8字元；首尾必須是英文；中間必須是數字'}
+                    onChange={(val) => setFormObject({ ...formObject, data: { ...formObject.data, password: val } })}
+                    valid={{ msg: '4-8字元；首尾必須是英文；中間必須是數字', testVal: formObject?.vaildator?.['password'], isValid: formObject?.error?.['password'] }}
+                />
+            </section>
+            <div className="flex flex-col justify-center">
+                <span
+                    className="text-blue-500 m-1 text-center cursor-pointer underline"
+                    onClick={() => history.push('./register')}>註冊</span>
+                <button
+                    className=" bg-blue-500 rounded-lg px-3 py-1 m-1 text-white"
+                    onClick={onSubmit}>登入</button>
+            </div>
         </div>
     );
 }
