@@ -18,7 +18,7 @@ export default function InputItem(props) {
     return (
         <div className="flex flex-row items-center my-6">
             {required && <span style={{ color: '#FF0000' }}>*</span>}
-            <span className="min-w-50">{label}</span>
+            <span className="w-50 min-w-50 break-words mr-1">{label}</span>
             <div className="relative flex">
                 <input
                     style={{ border: !isValid ? '1px solid #FF0000' : '1px solid #DDDDDD', width: '300px', fontSize:'13px', padding: '10px 5px' }}
