@@ -13,7 +13,7 @@ const routerConfig = [
       return (
         <Fragment>
           <Suspense fallback={<p>Loading~~~~</p>}>
-            <Register {...props} />
+            <Register {...props}/>
           </Suspense>
         </Fragment>
       );
@@ -25,55 +25,75 @@ const routerConfig = [
       return (
         <Fragment>
           <Suspense fallback={<p>Loading~~~~</p>}>
-            <Login {...props} />
+            <Login {...props}/>
           </Suspense>
         </Fragment>
       );
     },
   },
+  // {
+  //   path: "/notFound",
+  //   component: () => {
+  //     return (
+  //       <Fragment>
+  //         <Suspense fallback={<p>Loading~~~~</p>}>
+  //           <div>找不到頁面</div>
+  //         </Suspense>
+  //       </Fragment>
+  //     );
+  //   },
+  // },
   {
     path: "/",
-    exact: true,
-    isPrivate: true,
     component: (props) => {
       return (
         <Fragment>
           <Suspense fallback={<p>Loading~~~~</p>}>
-            <Layout {...props}>
-              <Home {...props} />
-            </Layout>
+            <Layout {...props} />
           </Suspense>
         </Fragment>
       );
     },
-  },
-  {
-    path: "/news",
-    isPrivate: true,
-    component: (props) => {
-      return (
-        <Fragment>
-          <Suspense fallback={<p>Loading~~~~</p>}>
-            <Layout {...props}>
-              <News {...props} />
-            </Layout>
-          </Suspense>
-        </Fragment>
-      );
-    },
+    routes: [
+      {
+        path: "/",
+        exact: true,
+        name: '首頁',
+        isPrivate: true,
+        component: (props) => {
+          return (
+            <Fragment>
+              <Suspense fallback={<p>Loading~~~~</p>}>
+                <Home {...props} />
+              </Suspense>
+            </Fragment>
+          );
+        },
+      },
+      {
+        path: "/news",
+        name: '最新消息',
+        isPrivate: true,
+        component: () => {
+          return (
+            <Fragment>
+              <Suspense fallback={<p>Loading~~~~</p>}>
+                <News />
+              </Suspense>
+            </Fragment>
+          );
+        },
+      },
+    ],
   },
   {
     path: "/*",
-    name: "404",
-    component: (props) => {
-      console.log('333333333333', props)
+    name: '404',
+    component: () => {
       return (
         <Fragment>
           <Suspense fallback={<p>Loading~~~~</p>}>
-            <div>
-              <span>找不到頁面</span>
-              <button onClick={()=>props.history.replace('./')}><a>回首頁</a></button>
-            </div>
+            <div>404</div>
           </Suspense>
         </Fragment>
       );
