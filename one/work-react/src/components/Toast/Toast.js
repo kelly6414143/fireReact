@@ -2,8 +2,6 @@ import React from "react";
 import ReactDOM from 'react-dom';
 import './toast.css'
 
-let timer = null
-
 function SuccessToast({ msg }) {
     return (
         <div className={'toast_wrapper'}>
@@ -39,10 +37,9 @@ function addSuccessToast(type, msg, duration = 2000) {
             ReactDOM.render(<SuccessToast msg={msg} />, containerDiv);
             break
     }
-    timer = setTimeout(() => {
+    const timer = setTimeout(() => {
         parentDom.removeChild(containerDiv)
-        // TODO 多個toast時toast無法消失
-        // clearTimeout(timer)
+        clearTimeout(timer)
     }, duration)
 }
 
