@@ -112,7 +112,7 @@ export default function Validtor(props) {
     return (
         <Dialog isShowDialog={isShowValidtor}>
             <>
-                <div id="valid_code" className="relative bg-white w-1/2 h-1/2">
+                <div id="valid_code" className="relative bg-white w-450 h-450">
                     {isFinishedValidtor && (
                         <div className={`w-full h-full ${isValid ? 'bg-green-500' : 'bg-red-500'} flex justify-center items-center animate-pulse`}>
                             <span className="text-white text-xl font-bold tracking-widest">{isValid ? '驗證成功' : '驗證失敗'}</span>
