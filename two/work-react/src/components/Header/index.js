@@ -1,31 +1,19 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import "./header.css";
+import { withRouter } from "react-router-dom";
 
-export default function Header() {
-  const routes = [
-    {
-      path: "./",
-      name: "首頁",
-    },
-    {
-      path: "./news",
-      name: "最新消息",
-    },
-  ];
+function Header(props) {
+
+  const { history: {replace} } = props
 
   return (
-    <div className="header-wrapper">
-      <div className="header-logo">LOGO</div>
-      <ul className="flex-row">
-        {routes.map((route, i) => {
-          return (
-            <li className="header-list" key={i}>
-              <Link to={route.path}>{route.name}</Link>
-            </li>
-          );
-        })}
-      </ul>
+    <div className="flex justify-between items-center p-6 shadow-md">
+      <div className="text-base font-bold">LOGO</div>
+      <div onClick={() => {
+        sessionStorage.removeItem('userToken')
+        replace('./login')
+      }}>登出</div>
     </div>
   );
 }
+
+export default withRouter(Header)

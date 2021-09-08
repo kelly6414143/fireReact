@@ -16,32 +16,7 @@ const renderRoutes = (props) => {
       route,
       route: { isPrivate },
     } = props;
-    // if (isPrivate && !sessionStorage["userToken"]) replace("./login");
-    // if (isPrivate) {
-    //   fetch("https://l8-upgrade-apis.vercel.app/api/user", {
-    //     headers: {
-    //       ContentType: "application/x-www-form-urlencoded",
-    //       Authorization: "Bearer " + sessionStorage["userToken"],
-    //     },
-    //   })
-    //     .then((res) => {
-    //       return res.json();
-    //     })
-    //     .then((res) => {
-    //       if (res.success) {
-    //         toast.success(res.message);
-    //       } else {
-    //         sessionStorage.removeItem("userToken");
-    //         toast.error(res.message);
-    //         replace("./login");
-    //       }
-    //     })
-    //     .catch((err) => {
-    //       console.error("err", err);
-    //       toast.error(err.message);
-    //       sessionStorage.removeItem("userToken");
-    //     });
-    // }
+    if (isPrivate && !sessionStorage["userToken"]) replace("./login");
     return <route.component {...props} routes={route.routes} />;
   }
 

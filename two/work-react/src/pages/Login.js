@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react"
 import InputItem from "../components/InputItem/InputItem"
 import toast from "../components/Toast/Toast"
 import Validtor from "../components/Validtor"
+import api from '../api/index'
 
 export default function Login(props) {
 
@@ -48,17 +49,13 @@ export default function Login(props) {
     }
 
     const onLogin = () => {
-        fetch('https://l8-upgrade-apis.vercel.app/api/login', {
+        api().post("/api/login", {
+            username: formObject.data.username,
+            password: formObject.data.password
+        }, {
             headers: {
-                "Content-Type": "application/json"
+                ContentType: "application/json",
             },
-            method: 'post',
-            body: JSON.stringify({
-                username: formObject.data.username,
-                password: formObject.data.password
-            }),
-        }).then(res => {
-            return res.json()
         }).then(res => {
             if (res.success) {
                 toast.success(res.message)
@@ -108,7 +105,7 @@ export default function Login(props) {
                         onClick={onSubmit}>登入</button>
                 </div>
             </div>
-            <Validtor isShowDialog={isShowValidtor} onSuccessCallback={onLogin}/>
+            <Validtor isShowDialog={isShowValidtor} onSuccessCallback={onLogin} />
         </>
     );
 }
