@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react"
 import InputItem from "../components/InputItem/InputItem"
 import toast from "../components/Toast/Toast"
-import Validtor from "../components/Validtor"
+import Validator from "../components/Validator"
 import api from '../api/index'
 
 export default function Login(props) {
 
     const { history } = props
     const [formObject, setFormObject] = useState({})
-    const [isShowValidtor, setIsShowValidtor] = useState(false)
+    const [isShowValidator, setIsShowValidator] = useState(false)
 
     useEffect(() => {
         setFormObject({
@@ -26,12 +26,12 @@ export default function Login(props) {
 
     const onSubmit = async (event) => {
         event.preventDefault()
-        let isValid = await onValidtor()
+        let isValid = await onValidator()
         if (!isValid) return
-        setIsShowValidtor(true)
+        setIsShowValidator(true)
     }
 
-    const onValidtor = async () => {
+    const onValidator = async () => {
         let errorObject = {}
         let isValid = true
 
@@ -64,7 +64,7 @@ export default function Login(props) {
             } else {
                 toast.error(res.message)
             }
-            setIsShowValidtor(false)
+            setIsShowValidator(false)
         }).catch(err => {
             console.error('err', err)
             toast.error(err.message)
@@ -105,7 +105,7 @@ export default function Login(props) {
                         onClick={onSubmit}>登入</button>
                 </div>
             </div>
-            <Validtor isShowDialog={isShowValidtor} onSuccessCallback={onLogin} />
+            <Validator isShowDialog={isShowValidator} onSuccessCallback={onLogin} />
         </>
     );
 }

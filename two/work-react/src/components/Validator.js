@@ -3,25 +3,25 @@ import Dialog from "./Dialog"
 
 let validArr = []
 
-export default function Validtor(props) {
+export default function Validator(props) {
 
     const { isShowDialog, onSuccessCallback } = props
 
-    const [isFinishedValidtor, setIsFinishedValidtor] = useState(false)
+    const [isFinishedValidator, setIsFinishedValidator] = useState(false)
     const [isValid, setIsValid] = useState(false)
-    const [isShowValidtor, setIsShowValidtor] = useState(false)
+    const [isShowValidator, setIsShowValidator] = useState(false)
     const [compareMethod, setCompareMethod] = useState(1) //1: 由小到大 2: 由大到小
 
     useEffect(() => {
-        setIsShowValidtor(isShowDialog)
+        setIsShowValidator(isShowDialog)
         isShowDialog && createValidCode()
     }, [isShowDialog])
 
     useEffect(() => {
         if (isValid) {
             const timer = setTimeout(() => {
-                setIsShowValidtor(false)
-                setIsFinishedValidtor(false)
+                setIsShowValidator(false)
+                setIsFinishedValidator(false)
                 setIsValid(false)
                 onSuccessCallback()
                 clearTimeout(timer)
@@ -95,14 +95,14 @@ export default function Validtor(props) {
                     }
                 }
             }
-            setIsFinishedValidtor(true)
+            setIsFinishedValidator(true)
             setIsValid(isValid)
             validArr = []
 
             if (!isValid) {
                 const timer = setTimeout(() => {
                     createValidCode()
-                    setIsFinishedValidtor(false)
+                    setIsFinishedValidator(false)
                     clearTimeout(timer)
                 }, 1000)
             }
@@ -110,10 +110,10 @@ export default function Validtor(props) {
     }
 
     return (
-        <Dialog isShowDialog={isShowValidtor}>
+        <Dialog isShowDialog={isShowValidator}>
             <>
                 <div id="valid_code" className="relative bg-white w-450 h-450">
-                    {isFinishedValidtor && (
+                    {isFinishedValidator && (
                         <div className={`w-full h-full ${isValid ? 'bg-green-500' : 'bg-red-500'} flex justify-center items-center animate-pulse`}>
                             <span className="text-white text-xl font-bold tracking-widest">{isValid ? '驗證成功' : '驗證失敗'}</span>
                         </div>
