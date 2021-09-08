@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#toast {
+    position: absolute;
+    top: 0px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    animation-name: upAndDown;
+    animation-timing-function: ease; 
+    animation-fill-mode: both;
+}
