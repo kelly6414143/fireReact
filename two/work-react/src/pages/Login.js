@@ -48,7 +48,7 @@ export default function Login(props) {
     }
 
     const onLogin = () => {
-        fetch('/api/login', {
+        fetch('https://l8-upgrade-apis.vercel.app/api/login', {
             headers: {
                 "Content-Type": "application/json"
             },
@@ -108,7 +108,7 @@ export default function Login(props) {
                         onClick={onSubmit}>登入</button>
                 </div>
             </div>
-            {isShowValidtor && <Validtor onSuccessCallback={onLogin}/>}
+            <Validtor isShowDialog={isShowValidtor} onSuccessCallback={onLogin}/>
         </>
     );
 }

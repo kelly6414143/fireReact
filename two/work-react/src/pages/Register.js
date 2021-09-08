@@ -30,7 +30,7 @@ export default function Register(props) {
         event.preventDefault()
         let isValid = await onValidtor()
         if (!isValid) return
-        fetch('/api/register', {
+        fetch('https://l8-upgrade-apis.vercel.app/api/register', {
             headers: {
                 "Content-Type": "application/json"
             },
@@ -57,7 +57,7 @@ export default function Register(props) {
     }
 
     const onLogin = (data) => {
-        fetch('/api/login', {
+        fetch('https://l8-upgrade-apis.vercel.app/api/login', {
             headers: {
                 "Content-Type": "application/json"
             },

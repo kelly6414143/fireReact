@@ -14,5 +14,16 @@ React, react-dom, react-router, react-router-dom, tailwindcss, react-transition-
 
 ### 未開始
 
+1. 使用者資料補全
+2. 側邊欄
+3. 綁定側邊欄資料
+4. 綁定權限判斷
+5. 註冊頁增加使用者名稱
+6. Dialog改為DOMRender渲染
+
+### 開始中
+
+1. api集中管理
+
 
 
