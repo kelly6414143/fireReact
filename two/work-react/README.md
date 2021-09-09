@@ -44,7 +44,20 @@ React, react-dom, react-router, react-router-dom, tailwindcss, react-transition-
 16. 測試 console 一律建議砍掉，或是 dev 下可見
 17. onLogin 都一樣的 code 就復用
 18. 表單驗證請由組件驅動，因為你都封裝組件了，就該讓他驅動
-19. import 路徑建議一律 alias 處理
+19. ~import 路徑建議一律 alias 處理~
+    - 由於此專案是使用cra建置, wepback設定已經寫在react-scripts腳本中, 故無法直接使用webpack.config.js去改變webpack設置, 以此專案的啟動方式craco去改變, 故使用方式為在`craco.config.js`底下增加alias資訊
+    ```=javascript
+        const path = require('path');
+
+        module.exports = {
+            // ...
+            webpack: {
+                alias: {
+                    '@': path.join(path.resolve(__dirname, './src')),
+                }
+            }
+        }
+    ``` 
 20. 等驗證完在進頁面，不要沒驗證完就進，那驗證的意義就沒了
 
 ### 完成
