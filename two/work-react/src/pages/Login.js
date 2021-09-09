@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react"
-import InputItem from "../components/InputItem/InputItem"
-import toast from "../components/Toast/Toast"
-import Validator from "../components/Validator"
-import api from '../api/index'
+import InputItem from "@components/InputItem/InputItem"
+import toast from "@components/Toast/Toast"
+import Validator from "@components/Validator"
+import api from '@api/index'
 
 export default function Login(props) {
 
