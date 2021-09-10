@@ -1,8 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import '@/index.css';
+import App from '@/App';
+import reportWebVitals from '@/reportWebVitals';
+import {devConsole} from '@/tools/index'
+
+React.$devConsole = devConsole
 
 ReactDOM.render(<App />, document.getElementById('root'))
 

@@ -63,12 +63,9 @@ export default function Login(props) {
                 history.push('./')
             } else {
                 toast.error(res.message)
+                sessionStorage.removeItem('userToken')
             }
             setIsShowValidator(false)
-        }).catch(err => {
-            console.error('err', err)
-            toast.error(err.message)
-            sessionStorage.removeItem('userToken')
         })
     }
 

@@ -1,10 +1,13 @@
-import { useEffect } from 'react'
-import api from '../api/index'
-import toast from "../components/Toast/Toast"
+import React, { useEffect, useState } from 'react'
+import api from '@api/index'
+import toast from "@components/Toast/Toast"
+import Dialog from "@components/Dialog"
 
 export default function Home(props) {
 
     const { history: { replace } } = props
+
+    const [isShowDialog, setIsShowDialog] = useState(false)
 
     useEffect(() => {
         api().get("/api/user", {
@@ -15,19 +18,21 @@ export default function Home(props) {
         }).then((res) => {
             if (res.success) {
                 toast.success(res.message);
+                React.$devConsole(res.data.name)
+                if(!res.data.name) {
+                    setIsShowDialog(true)
+                }
             } else {
                 toast.error(res.message);
                 replace("./login");
             }
-        }).catch((err) => {
-            console.error("err", err);
-            toast.error(err.message);
-        });
+        })
     }, [])
 
     return (
         <div>
             首頁
+            <Dialog isShowDialog={isShowDialog}/>
         </div>
     );
 }
