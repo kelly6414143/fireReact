@@ -14,17 +14,18 @@ React, react-dom, react-router, react-router-dom, tailwindcss, react-transition-
 
 ### 未開始
 
-1. 使用者資料補全
-2. 側邊欄
-3. 綁定側邊欄資料
-4. 綁定權限判斷
-5. 註冊頁增加使用者名稱
-6. Dialog改為DOMRender渲染
-7. api集中管理-進階配置 
+1. 側邊欄
+2. 綁定側邊欄資料
+3. 綁定權限判斷
+4. Dialog改為DOMRender渲染
+5. api集中管理-進階配置 
 
 ### 開始中
 
-### 修改q1的bug及建議事項
+1. 使用者資料補全
+2. 註冊頁增加使用者名稱
+
+#### 修改q1的bug及建議事項
 
 1. ~~package 裝了就要用，沒用就砍掉，如 use-context-selector~~
 2. 一下 class 一下 function component，class 處理得內容也不是 function 不能處理的(如錯誤邊界)，你是義大利廚師嗎？官方建議新專案全用 function，除非 function 做不到的再用 class
@@ -44,7 +45,7 @@ React, react-dom, react-router, react-router-dom, tailwindcss, react-transition-
 16. 測試 console 一律建議砍掉，或是 dev 下可見
 17. onLogin 都一樣的 code 就復用
 18. 表單驗證請由組件驅動，因為你都封裝組件了，就該讓他驅動
-19. ~import 路徑建議一律 alias 處理~
+19. ~~import 路徑建議一律 alias 處理~~
     - 由於此專案是使用cra建置, wepback設定已經寫在react-scripts腳本中, 故無法直接使用webpack.config.js去改變webpack設置, 以此專案的啟動方式craco去改變, 故使用方式為在`craco.config.js`底下增加alias資訊
     ```=javascript
         const path = require('path');
