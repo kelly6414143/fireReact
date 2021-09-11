@@ -46,9 +46,20 @@ function axiosMaps() {
         return instance.get(url, header)
     }
 
+    const put = (url, param, header = {}) => {
+        return instance.put(url, param, header).then((res) => {
+            React.$devConsole('postres', res)
+            return res
+        }).catch((error) => {
+            React.$devConsole('posterr', error)
+            return error.response.data
+        })
+    }
+
     return {
         post: post,
-        get: get
+        get: get,
+        put: put
     }
 
 }
