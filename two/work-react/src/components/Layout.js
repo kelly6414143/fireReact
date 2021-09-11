@@ -44,10 +44,10 @@ export default function Wrapper(props) {
       }).then((res) => {
         if (res.success) {
           toast.success(res.message);
+          setIsShowDialog(false)
         } else {
           toast.error(res.message);
         }
-        setIsShowDialog(false)
       })
   }
 

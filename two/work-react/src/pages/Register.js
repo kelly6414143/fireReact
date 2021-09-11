@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"
 import InputItem from "../components/InputItem/InputItem"
 import toast from "../components/Toast/Toast"
+import api from '@api/index'
 
 export default function Register(props) {
 
@@ -12,7 +13,8 @@ export default function Register(props) {
             data: {
                 username: "",
                 password: "",
-                comfirmPassword: ""
+                comfirmPassword: "",
+                name: ""
             },
             vaildator: {
                 username: (el) => /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/.test(el),
@@ -30,57 +32,42 @@ export default function Register(props) {
         event.preventDefault()
         let isValid = await onValidtor()
         if (!isValid) return
-        fetch('https://l8-upgrade-apis.vercel.app/api/register', {
+
+        api().post("/api/register", {
+            username: formObject.data.username,
+            password: formObject.data.password,
+            name: formObject.data.name
+        }, {
             headers: {
                 "Content-Type": "application/json"
             },
-            method: 'post',
-            body: JSON.stringify({
-                username: formObject.data.username,
-                password: formObject.data.password
-            }),
         }).then(res => {
-            return res.json()
-        }).then(res => {
-            console.log('res', res)
             if (res.success) {
                 onLogin(formObject.data)
                 toast.success(res.message)
             } else {
                 toast.error(res.message)
             }
-        }).catch(err => {
-            console.error('err', err)
-            toast.error(err.message)
-            sessionStorage.removeItem('userToken')
         })
     }
 
     const onLogin = (data) => {
-        fetch('https://l8-upgrade-apis.vercel.app/api/login', {
+        api().post("/api/login", {
+            username: formObject.data.username,
+            password: formObject.data.password
+        }, {
             headers: {
-                "Content-Type": "application/json"
+                ContentType: "application/json",
             },
-            method: 'post',
-            body: JSON.stringify({
-                username: data.username,
-                password: data.password
-            }),
         }).then(res => {
-            return res.json()
-        }).then(res => {
-            console.log('res', res)
             if (res.success) {
+                toast.success(res.message)
                 sessionStorage.setItem('userToken', res.token)
                 history.push('./')
-                toast.success(res.message)
             } else {
                 toast.error(res.message)
+                sessionStorage.removeItem('userToken')
             }
-        }).catch(err => {
-            console.error('err', err)
-            toast.error(err.message)
-            sessionStorage.removeItem('userToken')
         })
     }
 
@@ -118,6 +105,12 @@ export default function Register(props) {
                     valid={{ msg: '必須是信箱', testVal: formObject?.vaildator?.['username'], isValid: formObject?.error?.['username'] }}
                 />
                 <InputItem
+                    label="使用者名稱"
+                    type="text"
+                    placeholder={'可選，對其他用戶顯示名稱'}
+                    onChange={(val) => setFormObject({ ...formObject, data: { ...formObject.data, name: val } })}
+                />
+                <InputItem
                     label="密碼"
                     type="password"
                     required={true}
@@ -140,7 +133,7 @@ export default function Register(props) {
             <div className="flex flex-col justify-center">
                 <span
                     className="text-blue-500 m-1 text-center cursor-pointer underline"
-                    style={{textUnderlinePosition: 'under'}}
+                    style={{ textUnderlinePosition: 'under' }}
                     onClick={() => history.push('./login')}
                 >
                     登入

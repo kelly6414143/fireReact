@@ -43,7 +43,13 @@ function axiosMaps() {
     }
 
     const get = (url, header = {}) => {
-        return instance.get(url, header)
+        return instance.get(url, header).then((res) => {
+            React.$devConsole('postres', res)
+            return res
+        }).catch((error) => {
+            React.$devConsole('posterr', error)
+            return error.response.data
+        })
     }
 
     const put = (url, param, header = {}) => {
