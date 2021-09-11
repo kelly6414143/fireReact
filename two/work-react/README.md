@@ -22,8 +22,7 @@ React, react-dom, react-router, react-router-dom, tailwindcss, react-transition-
 
 ### 開始中
 
-1. 使用者資料補全
-2. 註冊頁增加使用者名稱
+1. 註冊頁增加使用者名稱
 
 #### 修改q1的bug及建議事項
 
@@ -64,6 +63,7 @@ React, react-dom, react-router, react-router-dom, tailwindcss, react-transition-
 ### 完成
 
 1. api集中管理-基礎配置 (9/8 完成)
+2. 使用者資料補全 (9/11 完成-未調整表單及輸入框組件)
 
 
 
