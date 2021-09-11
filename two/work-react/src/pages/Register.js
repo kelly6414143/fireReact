@@ -107,7 +107,7 @@ export default function Register(props) {
 
     return (
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-6 mx-auto bg-white rounded-xl shadow-lg items-center max-w-1/2 flex flex-col justify-start">
-            <header className="text-center text-xl font-bold">註冊</header>
+            <div className="text-center text-xl font-bold">註冊</div>
             <div className="mb-4 mt-6">
                 <InputItem
                     label="帳號"
