@@ -2,7 +2,7 @@ import React, { Suspense, lazy, Fragment } from "react";
 
 const Layout = lazy(() => import("../components/Layout"));
 const Home = lazy(() => import("../pages/Home"));
-const News = lazy(() => import("../pages/News"));
+// const News = lazy(() => import("../pages/News"));
 const Register = lazy(() => import("../pages/Register"));
 const Login = lazy(() => import("../pages/Login"));
 
@@ -78,7 +78,7 @@ const routerConfig = [
           return (
             <Fragment>
               <Suspense fallback={<p>Loading~~~~</p>}>
-                <News />
+                {/* <News /> */}
               </Suspense>
             </Fragment>
           );

@@ -27,7 +27,7 @@ export default function Wrapper(props) {
         }
       } else {
         toast.error(res.message);
-        replace("./login");
+        replace("/login");
       }
     })
   }, [])
@@ -53,8 +53,15 @@ export default function Wrapper(props) {
 
   return (
     <div>
-      <Header routes={routes} />
-      {children}
+      <Header routes={routes} containerClassName="mb-2"/>
+      <div className="flex">
+        <div className="w-100 h-full bg-yellow-600">
+          {"側邊欄"}
+        </div>
+        <div className="w-full h-full bg-green-600">
+          {children}
+        </div>
+      </div>
       <Dialog isShowDialog={isShowDialog}>
         <div className="relative bg-white px-8 py-6 text-center">
           <div className="text-center text-xl font-bold">使用者資料補全</div>
