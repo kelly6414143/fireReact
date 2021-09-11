@@ -14,15 +14,14 @@ React, react-dom, react-router, react-router-dom, tailwindcss, react-transition-
 
 ### 未開始
 
-1. 側邊欄
-2. 綁定側邊欄資料
-3. 綁定權限判斷
-4. Dialog改為DOMRender渲染
-5. api集中管理-進階配置 
+1. Dialog改為DOMRender渲染
+2. api集中管理-進階配置 
 
 ### 開始中
 
-1. 註冊頁增加使用者名稱
+1. 側邊欄
+2. 綁定側邊欄資料
+3. 綁定權限判斷
 
 #### 修改q1的bug及建議事項
 
@@ -64,6 +63,7 @@ React, react-dom, react-router, react-router-dom, tailwindcss, react-transition-
 
 1. api集中管理-基礎配置 (9/8 完成)
 2. 使用者資料補全 (9/11 完成-未調整表單及輸入框組件)
+3. 註冊頁增加使用者名稱 (9/11 完成-未調整表單及輸入框組件)
 
 
 
