@@ -19,8 +19,9 @@ React, react-dom, react-router, react-router-dom, tailwindcss, react-transition-
 
 ### 開始中
 
-1. 綁定權限判斷
-2. 增加context
+1. 增加contextx
+2. 綁定權限判斷
+3. 檔案上傳
 
 #### 修改q1的bug及建議事項
 
