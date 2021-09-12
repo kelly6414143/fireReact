@@ -23,7 +23,7 @@ export default function Wrapper(props) {
     api().get("/api/user", {
       headers: {
         ContentType: "application/x-www-form-urlencoded",
-        Authorization: "Bearer " + userInfo.token,
+        Authorization: "Bearer " + sessionStorage['userToken'],
       },
     }).then((res) => {
       if (res.success) {
@@ -46,7 +46,7 @@ export default function Wrapper(props) {
       {
         headers: {
           ContentType: "application/x-www-form-urlencoded",
-          Authorization: "Bearer " + userInfo.token,
+          Authorization: "Bearer " + sessionStorage['userToken'],
         },
       }).then((res) => {
         if (res.success) {
