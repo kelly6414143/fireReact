@@ -21,8 +21,8 @@ export default function Login(props) {
                 password: "",
             },
             vaildator: {
-                username: (el) => /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/.test(el),
-                password: (el) => /^[A-z]\d{2,6}[A-z]$/.test(el),
+                // username: (el) => /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/.test(el),
+                // password: (el) => /^[A-z]\d{2,6}[A-z]$/.test(el),
             },
             error: {}
         })
@@ -65,6 +65,7 @@ export default function Login(props) {
                 toast.success(res.message)
                 setUserInfo((data) => ({ ...data, ...res.data, token: res.token }))
                 sessionStorage.setItem('userToken', res.token)
+                sessionStorage.setItem('role', res.data.role)
                 history.push('./')
             } else {
                 toast.error(res.message)
