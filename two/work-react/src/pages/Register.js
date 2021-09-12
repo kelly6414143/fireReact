@@ -67,6 +67,8 @@ export default function Register(props) {
             if (res.success) {
                 toast.success(res.message)
                 setUserInfo((data) => ({ ...data, ...res.data, token: res.token }))
+                sessionStorage.setItem('userToken', res.token)
+                sessionStorage.setItem('role', res.data.role)
                 history.push('./')
             } else {
                 toast.error(res.message)

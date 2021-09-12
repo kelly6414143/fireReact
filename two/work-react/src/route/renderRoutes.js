@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import routes from "./routerConfig";
 
 /**
@@ -16,6 +16,7 @@ const renderRoutes = (props) => {
       route: { isPrivate },
     } = props;
     if (isPrivate && !sessionStorage["userToken"]) replace("/login");
+    if (route.auth === "ADMIN" && sessionStorage["role"] !== "ADMIN") return <Redirect to={"/notFound"}/>
     return <route.component {...props} routes={route.routes} />;
   }
 

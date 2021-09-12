@@ -66,6 +66,7 @@ const routerConfig = [
   {
     path: "/users",
     isPrivate: true,
+    auth: "ADMIN",
     component: (props) => {
       return (
         <Fragment>

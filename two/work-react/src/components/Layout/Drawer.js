@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, withRouter } from "react-router-dom";
 
 function Drawer(props) {
 
     const { history } = props
+
+    const [drawerContent, setDrawerContent] = useState([])
 
     const content = [
         {
@@ -11,15 +13,30 @@ function Drawer(props) {
             children: [
                 {
                     name: "帳戶設定",
-                    path: "/account/profile-setting"
+                    path: "/account/profile-setting",
                 }
             ]
         },
         {
             name: "會員管理",
-            path: "/users"
+            path: "/users",
+            auth: "ADMIN"
         }
     ]
+
+    useEffect(()=>{
+        onConstructDrawerContent()
+    },[])
+
+    const onConstructDrawerContent = () =>{
+        const newContent = content.filter((el)=>{
+            if(el.auth === "ADMIN" && sessionStorage["role"] !== "ADMIN") {
+                return false
+            }
+            return true
+        })
+        setDrawerContent(newContent)
+    }
 
     const RenderItem = (item, index) => {
 
@@ -39,6 +56,8 @@ function Drawer(props) {
         )
     }
 
+    // React.$devConsole('drawer', drawerContent)
+
     return (
         <div
             className="border-r border-gray-800"
@@ -47,8 +66,8 @@ function Drawer(props) {
                 minHeight: "calc(100vh - 72px)"
             }}
         >
-            {content.map((el, index) => (
-                <div key={index} className={`py-3 mx-3 ${content.length - 1 > index && "border-b"} border-gray-500`}>
+            {drawerContent.map((el, index) => (
+                <div key={index} className={`py-3 mx-3 ${drawerContent.length - 1 > index && "border-b"} border-gray-500`}>
                     {RenderItem(el, index)}
                 </div>
             ))}
