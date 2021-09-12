@@ -6,7 +6,7 @@ function Header(props) {
   const { history: {replace}, containerClassName } = props
 
   return (
-    <div className={`flex justify-between items-center p-6 shadow-md ${containerClassName}`}>
+    <div className={`flex justify-between items-center p-6 border border-gray-800 ${containerClassName}`}>
       <div className="text-base font-bold">LOGO</div>
       <div onClick={() => {
         sessionStorage.removeItem('userToken')

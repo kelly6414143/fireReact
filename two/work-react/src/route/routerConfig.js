@@ -1,6 +1,6 @@
 import React, { Suspense, lazy, Fragment } from "react";
 
-const Layout = lazy(() => import("@components/Layout"));
+const Layout = lazy(() => import("@components/Layout/Layout"));
 const Home = lazy(() => import("@/pages/Home"));
 const ProfileSetting = lazy(() => import("@/pages/ProfileSetting"));
 const UserManagement = lazy(() => import("@/pages/UserManagement"));

@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import Header from "./Header/index";
 import api from '@api/index'
 import toast from "@components/Toast/Toast"
 import Dialog from "@components/Dialog"
 import InputItem from "@components/InputItem/InputItem"
+import Header from "./Header/index";
+import Drawer from "./Drawer";
 
 export default function Wrapper(props) {
 
@@ -54,11 +55,9 @@ export default function Wrapper(props) {
   return (
     <div>
       <Header routes={routes} containerClassName="mb-2"/>
-      <div className="flex">
-        <div className="w-100 h-full bg-yellow-600">
-          {"側邊欄"}
-        </div>
-        <div className="w-full h-full bg-green-600">
+      <div className="flex border border-gray-800">
+        <Drawer />
+        <div className="w-full p-3">
           {children}
         </div>
       </div>
