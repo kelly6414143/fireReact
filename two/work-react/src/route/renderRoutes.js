@@ -16,7 +16,7 @@ const renderRoutes = (props) => {
       route,
       route: { isPrivate },
     } = props;
-    if (isPrivate && !sessionStorage["userToken"]) replace("./login");
+    if (isPrivate && !sessionStorage["userToken"]) replace("/login");
     return <route.component {...props} routes={route.routes} />;
   }
 

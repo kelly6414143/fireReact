@@ -82,13 +82,12 @@ const routerConfig = [
     path: "/*",
     name: "404",
     component: (props) => {
-      console.log('333333333333', props)
       return (
         <Fragment>
           <Suspense fallback={<p>Loading~~~~</p>}>
             <div>
               <span>找不到頁面</span>
-              <button onClick={() => props.history.replace('./')}><a>回首頁</a></button>
+              <button onClick={() => props.history.replace('/')}><a>回首頁</a></button>
             </div>
           </Suspense>
         </Fragment>
