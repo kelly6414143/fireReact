@@ -7,7 +7,7 @@ function Header(props) {
 
   return (
     <div className={`flex justify-between items-center p-6 border border-gray-800 ${containerClassName}`}>
-      <div className="text-base font-bold">LOGO</div>
+      <div className="text-base font-bold cursor-pointer" onClick={()=> replace("/")}>LOGO</div>
       <div onClick={() => {
         sessionStorage.removeItem('userToken')
         replace('/login')
