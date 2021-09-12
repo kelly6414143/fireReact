@@ -20,8 +20,7 @@ React, react-dom, react-router, react-router-dom, tailwindcss, react-transition-
 
 ### 開始中
 
-1. 綁定權限判斷
-2. 圖檔上傳
+1. 圖檔上傳
 
 #### 修改q1的bug及建議事項
 
@@ -68,6 +67,7 @@ React, react-dom, react-router, react-router-dom, tailwindcss, react-transition-
 5. 綁定側邊欄資料 (9/12 完成)
 6. 增加contextx (9/12 完成)
 7. header 右上角使用者資料 (9/12 完成)
+8. 綁定權限判斷 (9/12 完成)
 
 
 
