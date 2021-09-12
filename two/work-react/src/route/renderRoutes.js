@@ -1,6 +1,5 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import routes from "./routerConfig";
-import toast from "../components/Toast/Toast";
 
 /**
  * renderRoutes 渲染路由

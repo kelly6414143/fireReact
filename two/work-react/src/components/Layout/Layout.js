@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { useContextSelector } from 'use-context-selector';
+import { context } from '@/stores/context'
 import api from '@api/index'
 import toast from "@components/Toast/Toast"
 import Dialog from "@components/Dialog"
@@ -13,16 +15,21 @@ export default function Wrapper(props) {
   const [isShowDialog, setIsShowDialog] = useState(false)
   const [username, setUsername] = useState(undefined)
 
+  const userInfo = useContextSelector(context, state => state.userInfo[0]);
+  const setUserInfo = useContextSelector(context, state => state.userInfo[1]);
+
   useEffect(() => {
+    if(userInfo.name) return
     api().get("/api/user", {
       headers: {
         ContentType: "application/x-www-form-urlencoded",
-        Authorization: "Bearer " + sessionStorage["userToken"],
+        Authorization: "Bearer " + userInfo.token,
       },
     }).then((res) => {
       if (res.success) {
         toast.success(res.message);
-        React.$devConsole(res.data.name)
+        // React.$devConsole(res.data.name)
+        setUserInfo((data) => ({ ...data, ...res.data }))
         if (!res.data.name) {
           setIsShowDialog(true)
         }
@@ -34,13 +41,12 @@ export default function Wrapper(props) {
   }, [])
 
   const onSubmit = () => {
-
     api().put("/api/users/updateName",
       { name: username },
       {
         headers: {
           ContentType: "application/x-www-form-urlencoded",
-          Authorization: "Bearer " + sessionStorage["userToken"],
+          Authorization: "Bearer " + userInfo.token,
         },
       }).then((res) => {
         if (res.success) {
@@ -54,7 +60,7 @@ export default function Wrapper(props) {
 
   return (
     <div>
-      <Header routes={routes} containerClassName="mb-2"/>
+      <Header routes={routes} containerClassName="mb-2" />
       <div className="flex border border-gray-800">
         <Drawer />
         <div className="w-full p-3">

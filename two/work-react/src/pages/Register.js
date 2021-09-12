@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from "react"
-import InputItem from "../components/InputItem/InputItem"
-import toast from "../components/Toast/Toast"
+import { useContextSelector } from 'use-context-selector';
+import { context } from '@/stores/context'
+import InputItem from "@components/InputItem/InputItem"
+import toast from "@components/Toast/Toast"
 import api from '@api/index'
 
 export default function Register(props) {
 
     const { history } = props
     const [formObject, setFormObject] = useState({})
+
+    const setUserInfo = useContextSelector(context, state => state.userInfo[1]);
 
     useEffect(() => {
         setFormObject({
@@ -62,11 +66,11 @@ export default function Register(props) {
         }).then(res => {
             if (res.success) {
                 toast.success(res.message)
-                sessionStorage.setItem('userToken', res.token)
+                setUserInfo((data) => ({ ...data, ...res.data, token: res.token }))
                 history.push('./')
             } else {
                 toast.error(res.message)
-                sessionStorage.removeItem('userToken')
+                setUserInfo((data) => ({ ...data, token: '' }))
             }
         })
     }

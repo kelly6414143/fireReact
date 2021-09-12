@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react"
+import { useContextSelector } from 'use-context-selector';
+import { context } from '@/stores/context'
 import InputItem from "@components/InputItem/InputItem"
 import toast from "@components/Toast/Toast"
 import Validator from "@components/Validator"
@@ -9,6 +11,8 @@ export default function Login(props) {
     const { history } = props
     const [formObject, setFormObject] = useState({})
     const [isShowValidator, setIsShowValidator] = useState(false)
+
+    const setUserInfo = useContextSelector(context, state => state.userInfo[1]);
 
     useEffect(() => {
         setFormObject({
@@ -30,7 +34,7 @@ export default function Login(props) {
         if (!isValid) return
         setIsShowValidator(true)
     }
-
+ 
     const onValidator = async () => {
         let errorObject = {}
         let isValid = true
@@ -59,11 +63,12 @@ export default function Login(props) {
         }).then(res => {
             if (res.success) {
                 toast.success(res.message)
+                setUserInfo((data) => ({ ...data, ...res.data, token: res.token }))
                 sessionStorage.setItem('userToken', res.token)
                 history.push('./')
             } else {
                 toast.error(res.message)
-                sessionStorage.removeItem('userToken')
+                setUserInfo((data) => ({ ...data, token: '' }))
             }
             setIsShowValidator(false)
         })
