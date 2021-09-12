@@ -15,15 +15,13 @@ React, react-dom, react-router, react-router-dom, tailwindcss, react-transition-
 ### 未開始
 
 1. 縮小側邊欄
-2. header 右上角使用者資料
-3. Dialog改為DOMRender渲染
-4. api集中管理-進階配置 
+2. Dialog改為DOMRender渲染
+3. api集中管理-進階配置 
 
 ### 開始中
 
-1. 增加contextx
-2. 綁定權限判斷
-3. 圖檔上傳
+1. 綁定權限判斷
+2. 圖檔上傳
 
 #### 修改q1的bug及建議事項
 
@@ -68,6 +66,8 @@ React, react-dom, react-router, react-router-dom, tailwindcss, react-transition-
 3. 註冊頁增加使用者名稱 (9/11 完成-未調整表單及輸入框組件)
 4. 側邊欄 (9/12 完成)
 5. 綁定側邊欄資料 (9/12 完成)
+6. 增加contextx (9/12 完成)
+7. header 右上角使用者資料 (9/12 完成)
 
 
 
