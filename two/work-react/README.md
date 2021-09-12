@@ -14,14 +14,16 @@ React, react-dom, react-router, react-router-dom, tailwindcss, react-transition-
 
 ### 未開始
 
-1. Dialog改為DOMRender渲染
-2. api集中管理-進階配置 
+1. 縮小側邊欄
+2. header 右上角使用者資料
+3. Dialog改為DOMRender渲染
+4. api集中管理-進階配置 
 
 ### 開始中
 
 1. 增加contextx
 2. 綁定權限判斷
-3. 檔案上傳
+3. 圖檔上傳
 
 #### 修改q1的bug及建議事項
 
