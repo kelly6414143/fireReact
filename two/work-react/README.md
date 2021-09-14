@@ -16,7 +16,6 @@ React, react-dom, react-router, react-router-dom, tailwindcss, react-transition-
 
 ### 開始中
 
-1. 縮小側邊欄
 2. Dialog改為DOMRender渲染
 3. api集中管理-進階配置 
 
@@ -67,6 +66,7 @@ React, react-dom, react-router, react-router-dom, tailwindcss, react-transition-
 7. header 右上角使用者資料 (9/12 完成)
 8. 綁定權限判斷 (9/12 完成)
 9. 圖檔上傳 (9/12 完成 - 目前api無上傳)
+10. 縮小側邊欄
 
 
 
