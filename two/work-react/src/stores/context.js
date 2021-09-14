@@ -6,9 +6,11 @@ export const context = createContext(null);
 
 const Provider = ({ children }) => {
     const [userInfo, setUserInfo] = useState({});
+    const [drawerInfo, setDrawerInfo] = useState({})
 
     const store = {
-        userInfo : [userInfo, setUserInfo]
+        userInfo : [userInfo, setUserInfo],
+        drawerInfo: [drawerInfo, setDrawerInfo]
     }
 
     return (
