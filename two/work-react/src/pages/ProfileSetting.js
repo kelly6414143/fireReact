@@ -7,20 +7,23 @@ import api from '@api/index'
 export default function News() {
 
     const [userImage, setUserImage] = useState("")
+    const [userPreviewImage, setPreviewImage] = useState("")
 
     const userInfo = useContextSelector(context, state => state.userInfo[0]);
+    const setUserInfo = useContextSelector(context, state => state.userInfo[1]);
 
     const onChangeImage = (e) => {
         if (e.target.files && e.target.files[0]) {
             let img = e.target.files[0];
-            setUserImage(URL.createObjectURL(img))
+            setUserImage(img)
+            setPreviewImage(URL.createObjectURL(img))
         }
     }
 
     const onSubmit = () => {
 
         let formData = new FormData()
-        formData.append('image',userImage)
+        formData.append('image', userImage)
 
         api().post("/api/users/uploadPicture", formData, {
             headers: {
@@ -30,6 +33,7 @@ export default function News() {
         }).then(res => {
             if (res.success) {
                 toast.success(res.message)
+                setUserInfo((data) => ({ ...data, imgLink: res.data }))
             } else {
                 toast.error(res.message)
             }
@@ -39,8 +43,8 @@ export default function News() {
     return (
         <div>
             <h2>帳戶設定</h2>
-            <img alt={"profile"} src={userInfo.link || userImage}></img>
-            <input type="file" id="file-input" onChange={onChangeImage} className="block"/>
+            <img className="w-450 h-auto" alt={"profile"} src={userPreviewImage || userInfo.imgLink}></img>
+            <input type="file" id="file-input" onChange={onChangeImage} className="block mt-2 mb-5" />
             <span className="block">{`${userInfo.name}(${userInfo.username})`}</span>
             <button
                 onClick={onSubmit}
