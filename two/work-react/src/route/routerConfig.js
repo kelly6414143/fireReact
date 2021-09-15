@@ -1,4 +1,4 @@
-import React, { Suspense, lazy, Fragment } from "react";
+import React, { Suspense, lazy, Children } from "react";
 
 const Layout = lazy(() => import("@components/Layout/Layout"));
 const Home = lazy(() => import("@/pages/Home"));
@@ -7,16 +7,22 @@ const UserManagement = lazy(() => import("@/pages/UserManagement"));
 const Register = lazy(() => import("@/pages/Register"));
 const Login = lazy(() => import("@/pages/Login"));
 
+const AsyncComponent = ({children}) => {
+  return (
+    <Suspense fallback={<p>Loading~~~~</p>}>
+        {children}
+    </Suspense>
+  )
+} 
+
 const routerConfig = [
   {
     path: "/register",
     component: (props) => {
       return (
-        <Fragment>
-          <Suspense fallback={<p>Loading~~~~</p>}>
-            <Register {...props} />
-          </Suspense>
-        </Fragment>
+        <AsyncComponent>
+          <Register {...props} />
+        </AsyncComponent>
       );
     },
   },
@@ -24,11 +30,9 @@ const routerConfig = [
     path: "/login",
     component: (props) => {
       return (
-        <Fragment>
-          <Suspense fallback={<p>Loading~~~~</p>}>
-            <Login {...props} />
-          </Suspense>
-        </Fragment>
+        <AsyncComponent>
+          <Login {...props} />
+        </AsyncComponent>
       );
     },
   },
@@ -38,13 +42,11 @@ const routerConfig = [
     isPrivate: true,
     component: (props) => {
       return (
-        <Fragment>
-          <Suspense fallback={<p>Loading~~~~</p>}>
-            <Layout {...props}>
-              <Home {...props} />
-            </Layout>
-          </Suspense>
-        </Fragment>
+        <AsyncComponent>
+          <Layout {...props}>
+            <Home {...props} />
+          </Layout>
+        </AsyncComponent>
       );
     },
   },
@@ -53,13 +55,11 @@ const routerConfig = [
     isPrivate: true,
     component: (props) => {
       return (
-        <Fragment>
-          <Suspense fallback={<p>Loading~~~~</p>}>
-            <Layout {...props}>
-              <ProfileSetting {...props} />
-            </Layout>
-          </Suspense>
-        </Fragment>
+        <AsyncComponent>
+          <Layout {...props}>
+            <ProfileSetting {...props} />
+          </Layout>
+        </AsyncComponent>
       );
     },
   },
@@ -69,13 +69,11 @@ const routerConfig = [
     auth: "ADMIN",
     component: (props) => {
       return (
-        <Fragment>
-          <Suspense fallback={<p>Loading~~~~</p>}>
-            <Layout {...props}>
-              <UserManagement {...props} />
-            </Layout>
-          </Suspense>
-        </Fragment>
+        <AsyncComponent>
+          <Layout {...props}>
+            <UserManagement {...props} />
+          </Layout>
+        </AsyncComponent>
       );
     },
   },
@@ -84,14 +82,12 @@ const routerConfig = [
     name: "404",
     component: (props) => {
       return (
-        <Fragment>
-          <Suspense fallback={<p>Loading~~~~</p>}>
-            <div>
-              <span>找不到頁面</span>
-              <button onClick={() => props.history.replace('/')}><a>回首頁</a></button>
-            </div>
-          </Suspense>
-        </Fragment>
+        <AsyncComponent>
+          <div>
+            <span>找不到頁面</span>
+            <button onClick={() => props.history.replace('/')}><a>回首頁</a></button>
+          </div>
+        </AsyncComponent>
       );
     },
   },
