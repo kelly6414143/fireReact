@@ -54,10 +54,9 @@ function Drawer(props) {
         <div key={index}>
           <Link
             to={item.path || item.children[0].path}
-            className={`block ${
-              history.location.pathname === item.path &&
+            className={`block ${history.location.pathname === item.path &&
               "bg-gray-900 text-white"
-            } px-2 py-1`}
+              } px-2 py-1`}
           >
             {children && <span>+</span>}
             {item.name}
@@ -70,38 +69,40 @@ function Drawer(props) {
         <div key={index}>
           {children ? (
             <div
-              className={`relative ${
-                children.filter((el) => el.path === history.location.pathname)
+              className={`relative ${children.filter((el) => el.path === history.location.pathname)
                   .length > 0 && "bg-gray-900 text-white"
-              }`}
+                }`}
               onClick={() => {
                 setIsShowChild(!isShowChild);
               }}
             >
               + {item.name.slice(0, 1)}
-              <div className="absolute left-full top-1/2 whitespace-nowrap bg-white border border-black">
+              <div className="absolute left-full top-1/2">
                 {isShowChild &&
-                  children.map((el, idx) => (
-                    <Link
-                      to={el.path || el.children[0].path}
-                      key={idx}
-                      className={`block ${
-                        history.location.pathname === el.path &&
-                        "bg-gray-900 text-white"
-                      } px-2 py-1`}
-                    >
-                      {el.name}
-                    </Link>
-                  ))}
+                  <div className=" whitespace-nowrap bg-white border border-black">
+                    {
+                      children.map((el, idx) => (
+                        <Link
+                          to={el.path || el.children[0].path}
+                          key={idx}
+                          className={`block ${history.location.pathname === el.path &&
+                            "bg-gray-900 text-white"
+                            } px-2 py-1`}
+                        >
+                          {el.name}
+                        </Link>
+                      ))
+                    }
+                  </div>
+                }
               </div>
             </div>
           ) : (
             <Link
               to={item.path || item.children[0].path}
-              className={`block ${
-                history.location.pathname === item.path &&
+              className={`block ${history.location.pathname === item.path &&
                 "bg-gray-900 text-white"
-              }`}
+                }`}
             >
               {item.name.slice(0, 1)}
             </Link>
@@ -140,9 +141,8 @@ function Drawer(props) {
           {drawerContent.map((el, index) => (
             <div
               key={index}
-              className={`py-3 mx-3 ${
-                drawerContent.length - 1 > index && "border-b"
-              } border-gray-500`}
+              className={`py-3 mx-3 ${drawerContent.length - 1 > index && "border-b"
+                } border-gray-500`}
             >
               {RenderItem(el, index)}
             </div>
