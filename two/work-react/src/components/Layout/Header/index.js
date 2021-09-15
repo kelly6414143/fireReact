@@ -31,9 +31,7 @@ function Header(props) {
           LOGO
         </div>
         <div
-          className={`flex flex-col justify-around items-center ${
-            drawerInfo.isExtendDrawer ? "bg-black" : "border border-black"
-          } p-1`}
+          className={`flex flex-col justify-around items-center border border-black p-1`}
           onClick={() =>
             setDrawerInfo({
               ...drawerInfo,
@@ -44,9 +42,7 @@ function Header(props) {
           {["","",""].map((el, idx) => {
             return (
               <div
-                className={`w-5  ${
-                  drawerInfo.isExtendDrawer ? "bg-white" : "bg-black"
-                }`}
+                className={`w-5 bg-black`}
                 style={{ height: "1px" }}
                 key={idx}
               />
