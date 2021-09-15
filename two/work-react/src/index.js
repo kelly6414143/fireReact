@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom';
 import '@/index.css';
 import App from '@/App';
 import reportWebVitals from '@/reportWebVitals';
-import {devConsole} from '@/tools/index'
+import commonTool, {devConsole} from '@/tools/index'
 
-React.$devConsole = devConsole
+React.$commonTool = commonTool
 
 ReactDOM.render(<App />, document.getElementById('root'))
 

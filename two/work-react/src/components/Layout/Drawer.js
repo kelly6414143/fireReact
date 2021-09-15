@@ -112,7 +112,7 @@ function Drawer(props) {
     }
   };
 
-  // React.$devConsole('drawer', drawerContent)
+  // React.$commonTool.devConsole('drawer', drawerContent)
   const duration = 500;
 
   const defaultStyle = {

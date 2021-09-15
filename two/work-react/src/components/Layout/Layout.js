@@ -33,7 +33,6 @@ export default function Wrapper(props) {
       .then((res) => {
         if (res.success) {
           toast.success(res.message);
-          // React.$devConsole(res.data.name)
           setUserInfo((data) => ({ ...data, ...res.data }));
           if (!res.data.name) {
             setIsShowDialog(true);
