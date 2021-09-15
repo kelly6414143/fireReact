@@ -1,13 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import { withRouter } from "react-router-dom";
 import { useContextSelector } from "use-context-selector";
 import { context } from "@/stores/context";
 
-function Header(props) {
-  const {
+function Header({
     history: { replace },
     containerClassName,
-  } = props;
+  }) {
 
   const userInfo = useContextSelector(context, (state) => state.userInfo[0]);
   const drawerInfo = useContextSelector(
@@ -39,7 +38,7 @@ function Header(props) {
             })
           }
         >
-          {["","",""].map((el, idx) => {
+          {["", "", ""].map((el, idx) => {
             return (
               <div
                 className={`w-5 bg-black`}
