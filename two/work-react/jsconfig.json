@@ -7,10 +7,8 @@
         "paths": {
             "@/*": ["src/*"],
             "@components/*": ["src/components/*"],
-            "@api/*":["src/api/*"],
+            "@api/*":["src/api/*"]
         }
     },
-    "exclude": [
-        "node_modules"
-    ]
+    "exclude": ["node_modules"]
 }
