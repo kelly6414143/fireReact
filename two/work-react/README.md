@@ -14,10 +14,12 @@ React, react-dom, react-router, react-router-dom, tailwindcss, react-transition-
 
 ### 未開始
 
+1. api集中管理-進階配置 
+2. 
+
 ### 開始中
 
-2. Dialog改為DOMRender渲染
-3. api集中管理-進階配置 
+1. 表單組件化(form/ inputItem)
 
 #### 修改q1的bug及建議事項
 
@@ -29,14 +31,14 @@ React, react-dom, react-router, react-router-dom, tailwindcss, react-transition-
 6. 少了防禦編程，任何可能為空的值都要防呆，如 InputItem 的 change
 7. ~~Toast timer 別共用~~
 8. ~~addSuccessToast 這名字取的不好呀，裡面處理 error 也處理 success type 請改個好名字~~
-9. 因為你做了 Dialog 組件，我就幫你評一下，這種浮層組件，建議都放在 root 外，像你的 toast 那樣放就 ok
+9. ~~因為你做了 Dialog 組件，我就幫你評一下，這種浮層組件，建議都放在 root 外，像你的 toast 那樣放就 ok~~
 10. ~~Validtor, comfirm 打錯字~~
 11. Validtor 的數字生成請使用 jsx 方式處理
 12. Validtor 的數字生成請用代碼生成，不要 1, 2, 3 這樣寫
 13. local/sessionStorage 一律建議不要直接 get/set/removeItem 來進行操作，建議由 store 驅動這些資料，不然你要一直 parse 轉來轉去
 14. 全局 fetch 錯誤處理，通常權限不足 api 不會只有一隻，這種寫法會有問題，這樣你每隻私有 api 都需要再 catch 一次
-15. 404 不用搓驗證 api，而且進不到你的 404 頁面
-16. 測試 console 一律建議砍掉，或是 dev 下可見
+15. ~~404 不用搓驗證 api，而且進不到你的 404 頁面~~
+16. ~~測試 console 一律建議砍掉，或是 dev 下可見~~
 17. onLogin 都一樣的 code 就復用
 18. 表單驗證請由組件驅動，因為你都封裝組件了，就該讓他驅動
 19. ~~import 路徑建議一律 alias 處理~~
@@ -53,7 +55,7 @@ React, react-dom, react-router, react-router-dom, tailwindcss, react-transition-
             }
         }
     ``` 
-20. 等驗證完在進頁面，不要沒驗證完就進，那驗證的意義就沒了
+20. ~~等驗證完在進頁面，不要沒驗證完就進，那驗證的意義就沒了~~
 
 ### 完成
 
@@ -65,8 +67,9 @@ React, react-dom, react-router, react-router-dom, tailwindcss, react-transition-
 6. 增加contextx (9/12 完成)
 7. header 右上角使用者資料 (9/12 完成)
 8. 綁定權限判斷 (9/12 完成)
-9. 圖檔上傳 (9/12 完成 - 目前api無上傳)
-10. 縮小側邊欄
+9. 圖檔上傳 (9/12 完成, 上傳圖檔 9/15完成)
+10. 縮小側邊欄 (9/12 完成)
+11. Dialog改為DOMRender渲染 (9/19 完成)
 
 
 
