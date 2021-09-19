@@ -34,7 +34,7 @@ export default function Login(props) {
         if (!isValid) return
         setIsShowValidator(true)
     }
- 
+
     const onValidator = async () => {
         let errorObject = {}
         let isValid = true
@@ -104,11 +104,11 @@ export default function Login(props) {
                         style={{ textUnderlinePosition: 'under' }}
                         onClick={() => history.push('./register')}>註冊</span>
                     <button
-                        className=" bg-blue-500 rounded-lg px-3 py-1 m-1 text-white"
+                        className="bg-blue-500 rounded-lg px-3 py-1 m-1 text-white"
                         onClick={onSubmit}>登入</button>
                 </div>
             </div>
-            <Validator isShowDialog={isShowValidator} onSuccessCallback={onLogin} />
+            <Validator isShowDialog={isShowValidator} onSuccessCallback={onLogin} onHandleClose={() => setIsShowValidator(false)} />
         </>
     );
 }

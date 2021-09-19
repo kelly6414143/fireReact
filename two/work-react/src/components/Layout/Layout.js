@@ -3,7 +3,7 @@ import { useContextSelector } from "use-context-selector";
 import { context } from "@/stores/context";
 import api from "@api/index";
 import toast from "@components/Toast/Toast";
-import Dialog from "@components/Dialog";
+import SimpleDialog from "@/components/SimpleDialog";
 import InputItem from "@components/InputItem/InputItem";
 import Header from "./Header/index";
 import Drawer from "./Drawer";
@@ -76,7 +76,7 @@ export default function Wrapper(props) {
         <Drawer/>
         <div className="w-full p-3">{children}</div>
       </div>
-      <Dialog isShowDialog={isShowDialog}>
+      <SimpleDialog isShowDialog={isShowDialog}>
         <div className="relative bg-white px-8 py-6 text-center">
           <div className="text-center text-xl font-bold">使用者資料補全</div>
           <section className="mb-4 mt-6">
@@ -97,7 +97,7 @@ export default function Wrapper(props) {
             確定
           </button>
         </div>
-      </Dialog>
+      </SimpleDialog>
     </div>
   );
 }

@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
-import Dialog from "./Dialog"
+import SimpleDialog from "./SimpleDialog"
 
 let validArr = []
 
-export default function Validator(props) {
-
-    const { isShowDialog, onSuccessCallback } = props
+export default function Validator({ isShowDialog, onSuccessCallback, onHandleClose }) {
 
     const [isFinishedValidator, setIsFinishedValidator] = useState(false)
     const [isValid, setIsValid] = useState(false)
@@ -110,17 +108,17 @@ export default function Validator(props) {
     }
 
     return (
-        <Dialog isShowDialog={isShowValidator}>
+        <SimpleDialog isShowDialog={isShowValidator} onHandleClose={onHandleClose}>
             <>
-                <div id="valid_code" className="relative bg-white w-450 h-450">
+                <div id="valid_code" className="relative w-full h-full">
                     {isFinishedValidator && (
-                        <div className={`w-full h-full ${isValid ? 'bg-green-500' : 'bg-red-500'} flex justify-center items-center animate-pulse`}>
+                        <div className={`w-full h-full rounded-t-xl ${isValid ? 'bg-green-500' : 'bg-red-500'} flex justify-center items-center animate-pulse`}>
                             <span className="text-white text-xl font-bold tracking-widest">{isValid ? '驗證成功' : '驗證失敗'}</span>
                         </div>
                     )}
                 </div>
                 <div>{compareMethod === 1 ? '請由數字最小點到最大' : '請由數字最大點到最小'}</div>
             </>
-        </Dialog>
+        </SimpleDialog>
     );
 }
