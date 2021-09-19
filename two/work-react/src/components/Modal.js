@@ -43,7 +43,7 @@ export default function Modal({
                 {
                     isShowHeader && <div className="w-full bg-white border-b border-gray-800 text-center py-2 font-bold text-xl rounded-t-xl">{title || "標題"}</div>
                 }
-                <div className="items-start flex-1">
+                <div className="items-start flex-1 overflow-y-scroll">
                     {children}
                 </div>
                 {
