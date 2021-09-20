@@ -3,7 +3,12 @@ import SimpleDialog from "./SimpleDialog"
 
 let validArr = []
 
-export default function Validator({ isShowDialog, onSuccessCallback, onHandleClose }) {
+export default function Validator({
+    isShowDialog,
+    onSuccessCallback,
+    onHandleClose,
+    contentClassName
+}) {
 
     const [isFinishedValidator, setIsFinishedValidator] = useState(false)
     const [isValid, setIsValid] = useState(false)
@@ -108,7 +113,11 @@ export default function Validator({ isShowDialog, onSuccessCallback, onHandleClo
     }
 
     return (
-        <SimpleDialog isShowDialog={isShowValidator} onHandleClose={onHandleClose}>
+        <SimpleDialog
+            isShowDialog={isShowValidator}
+            onHandleClose={onHandleClose}
+            contentClassName={contentClassName}
+        >
             <>
                 <div id="valid_code" className="relative w-full h-full">
                     {isFinishedValidator && (

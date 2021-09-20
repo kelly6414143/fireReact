@@ -3,7 +3,7 @@ import { useContextSelector } from "use-context-selector";
 import { context } from "@/stores/context";
 import api from "@api/index";
 import toast from "@components/Toast/Toast";
-import SimpleDialog from "@/components/SimpleDialog";
+import Modal from "@/components/Modal";
 import InputItem from "@components/InputItem/InputItem";
 import Header from "./Header/index";
 import Drawer from "./Drawer";
@@ -73,12 +73,22 @@ export default function Wrapper(props) {
         containerClassName="mb-2"
       />
       <div className="flex border border-gray-800">
-        <Drawer/>
+        <Drawer />
         <div className="w-full p-3">{children}</div>
       </div>
-      <SimpleDialog isShowDialog={isShowDialog}>
+      <Modal
+        isShowModal={isShowDialog}
+        isShowHeader={true}
+        title={"使用者資料補全"}
+        onBackDropClick={()=> {return false}}
+        ModalActions={<button
+          className=" bg-blue-500 rounded-lg px-3 py-1 m-1 text-white"
+          onClick={onSubmit}
+        >
+          確定
+        </button>}
+      >
         <div className="relative bg-white px-8 py-6 text-center">
-          <div className="text-center text-xl font-bold">使用者資料補全</div>
           <section className="mb-4 mt-6">
             <InputItem
               label="使用者名稱"
@@ -90,14 +100,8 @@ export default function Wrapper(props) {
               labelClassName="w-auto"
             />
           </section>
-          <button
-            className=" bg-blue-500 rounded-lg px-3 py-1 m-1 text-white"
-            onClick={onSubmit}
-          >
-            確定
-          </button>
         </div>
-      </SimpleDialog>
+      </Modal>
     </div>
   );
 }

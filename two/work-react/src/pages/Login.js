@@ -108,7 +108,12 @@ export default function Login(props) {
                         onClick={onSubmit}>登入</button>
                 </div>
             </div>
-            <Validator isShowDialog={isShowValidator} onSuccessCallback={onLogin} onHandleClose={() => setIsShowValidator(false)} />
+            <Validator
+                isShowDialog={isShowValidator}
+                onSuccessCallback={onLogin}
+                onHandleClose={() => setIsShowValidator(false)}
+                contentClassName={"h-450"}
+            />
         </>
     );
 }

@@ -84,7 +84,7 @@ export default function Register(props) {
         for (let i = 0, len = Object.keys(formObject.data).length; i < len; i++) {
             const el = Object.keys(formObject.data)[i]
 
-            if (!formObject.data[el]) isValid = false
+            // if (!formObject.data[el]) isValid = false
             if (el === "comfirmPassword") {
                 isValid = onCheckComfirmPassword(formObject.data[el])
                 errorObject[el] = onCheckComfirmPassword(formObject.data[el])
