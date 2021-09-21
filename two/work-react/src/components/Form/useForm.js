@@ -1,9 +1,12 @@
 import React, { useRef } from 'react'
 
+let tempErr = null
+
 class FormStore {
     constructor() {
         this.store = {} //狀態庫
         this.fieldEntities = [] //組件實例
+        this.form = {}
         this.callbacks = {}  //記錄回調
         this.err = []
     }
@@ -18,19 +21,19 @@ class FormStore {
             this.fieldEntities = this.fieldEntities.filter(
                 (_entity) => _entity !== entity
             )
-            delete this.store[entity.props.name]
+            delete this.store[entity.name]
         }
 
     }
 
     //get
     getFieldsValue = () => {
-        React.$commonTool.devConsole('getFieldsValue', this.store)
+        // React.$commonTool.devConsole('getFieldsValue', this.store)
         return { ...this.store }
     }
 
     getFieldValue = (name) => {
-        React.$commonTool.devConsole('getFieldValue', name, this.store[name])
+        // React.$commonTool.devConsole('getFieldValue', name, this.store[name])
         return this.store[name]
     }
 
@@ -42,17 +45,16 @@ class FormStore {
             ...newStore,
         }
 
-        React.$commonTool.devConsole("store", this.store)
+        // React.$commonTool.devConsole("store", this.store)
 
         // 2.更新組件
-        // this.fieldEntities.forEach((entity) => {
-        //     Object.keys(newStore).forEach((k) => {
-        //         React.$commonTool.devConsole("setFieldsValue", k, entity)
-        //         if (k === entity.name) {
-        //             entity.onStoreChange()
-        //         }
-        //     })
-        // })
+        this.fieldEntities.forEach((entity) => {
+            Object.keys(newStore).forEach((k) => {
+                if (k === entity.name) {
+                    entity.onStoreChange()
+                }
+            })
+        })
     }
 
     //驗證
@@ -69,11 +71,29 @@ class FormStore {
             }
         })
 
+        // React.$commonTool.devConsole('validate', err, this.err.length)
+
         if (err.length > 0) {
             this.setInputErr(err)
+        } else {
+            if (this.err.length > 0) {
+                this.setInputErr([])
+            }
         }
 
         return err;
+    }
+
+    //個別驗證
+    validateField = (entity) => {
+        let { name, rules } = entity
+        let value = this.getFieldValue(name)
+        if (rules[0] && (!value || value && value.replace(/\s*/, "") === "")) {
+            this.setInputErr([...this.err, { name, err: rules[0].msg }])
+        } else {
+            this.err = this.err.filter((el)=> el.name !== name)
+            this.setInputErr(this.err)
+        }
     }
 
     //get inputerr
@@ -81,7 +101,6 @@ class FormStore {
         const errArr = this.err.filter((el) => {
             return el.name === name
         })
-        React.$commonTool.devConsole("getInputErr",errArr)
         return errArr.length > 0 && errArr[0].err
     }
 
@@ -89,13 +108,13 @@ class FormStore {
     setInputErr = (err) => {
         this.err = err
         this.fieldEntities.forEach((entity) => {
-            err.forEach((k) => {
-                React.$commonTool.devConsole("setInputErr", k, entity)
+            (tempErr || err).forEach((k) => {
                 if (k.name === entity.name) {
-                    // entity.onStoreChange()
+                    entity.onStoreChange()
                 }
             })
         })
+        tempErr = this.err
     }
 
     //set回調
@@ -109,11 +128,12 @@ class FormStore {
     submit = () => {
         // 效驗成功 執行onFinish
         // 效驗失敗 執行onFinishFailed
-        if (this.validate().length > 0) {
-            console.log("submit", this.validate())
+
+        const isValid = this.validate().length === 0
+        if (!isValid) {
             this.callbacks.onFinishFailed()
         } else {
-            this.callbacks.onFinish()
+            this.callbacks.onFinish(this.getFieldsValue())
         }
     }
 
@@ -123,7 +143,9 @@ class FormStore {
             getFieldValue: this.getFieldValue,
             setFieldsValue: this.setFieldsValue,
             validate: this.validate,
+            validateField: this.validateField,
             setCallbacks: this.setCallbacks,
+            registerForm: this.registerForm,
             registerFieldEntities: this.registerFieldEntities,
             getInputErr: this.getInputErr,
             submit: this.submit

@@ -5,7 +5,8 @@ export default function Form ({
     form,
     children,
     onFinish,
-    onFinishFailed
+    onFinishFailed,
+    className
 }){
     const [formInstance] = new useForm(form)
 
@@ -20,6 +21,7 @@ export default function Form ({
                 e.preventDefault()
                 formInstance.submit()
             }}
+            className={`mb-4 mt-6 ${className}`}
         >
             <FieldContext.Provider value={formInstance}>
                 {children}
