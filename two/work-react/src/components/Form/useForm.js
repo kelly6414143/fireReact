@@ -68,6 +68,20 @@ class FormStore {
             let value = this.getFieldValue(name)
             if (rules[0] && (!value || value && value.replace(/\s*/, "") === "")) {
                 err.push({ name, err: rules[0].msg })
+            } else if (rules[0] && typeof rules[0].validator === "string") {
+                // React.$commonTool.devConsole('validate', rules[0].validator)
+                let isValid = true
+                switch (rules[0].validator) {
+                    case 'email':
+                        isValid = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/.test(value)
+                        break
+                    default:
+                        break
+                }
+                // React.$commonTool.devConsole('validate1', name, isValid)
+                if (!isValid) {
+                    err.push({ name, err: rules[0].msg })
+                }
             }
         })
 
@@ -88,10 +102,37 @@ class FormStore {
     validateField = (entity) => {
         let { name, rules } = entity
         let value = this.getFieldValue(name)
+        // React.$commonTool.devConsole('validate11111', name, rules[0] && typeof rules[0].validator)
         if (rules[0] && (!value || value && value.replace(/\s*/, "") === "")) {
             this.setInputErr([...this.err, { name, err: rules[0].msg }])
-        } else {
-            this.err = this.err.filter((el)=> el.name !== name)
+        } else if (rules[0] && typeof rules[0].validator === "string") {
+            let isValid = true
+            switch (rules[0].validator) {
+                case 'email':
+                    isValid = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/.test(value)
+                    break
+                default:
+                    break
+            }
+            // React.$commonTool.devConsole('validate1', name, isValid)
+            if (!isValid) {
+                this.setInputErr([...this.err, { name, err: rules[0].msg }])
+            } else {
+                this.err = this.err.filter((el) => el.name !== name)
+                this.setInputErr(this.err)
+            }
+        } else if (rules[0] && typeof rules[0].validator === "object") {
+            // React.$commonTool.devConsole('validate11111', rules[0].validator)
+            let isValid = rules[0].validator.test(value)
+            // React.$commonTool.devConsole('validate1', name, isValid)
+            if (!isValid) {
+                this.setInputErr([...this.err, { name, err: rules[0].msg }])
+            } else {
+                this.err = this.err.filter((el) => el.name !== name)
+                this.setInputErr(this.err)
+            }
+        }else {
+            this.err = this.err.filter((el) => el.name !== name)
             this.setInputErr(this.err)
         }
     }
@@ -107,14 +148,15 @@ class FormStore {
     //set inputerr
     setInputErr = (err) => {
         this.err = err
+
         this.fieldEntities.forEach((entity) => {
-            (tempErr || err).forEach((k) => {
-                if (k.name === entity.name) {
-                    entity.onStoreChange()
-                }
-            })
+            entity.onStoreChange()
+            // (tempErr || err).forEach((k) => {
+            //     if (k.name === entity.name) {
+            //         entity.onStoreChange()
+            //     }
+            // })
         })
-        tempErr = this.err
     }
 
     //set回調

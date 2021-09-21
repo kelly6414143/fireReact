@@ -1,13 +1,13 @@
 import FieldContext from "@/stores/FieldContext";
 import useForm from "./useForm";
 
-export default function Form ({
+export default function Form({
     form,
     children,
-    onFinish,
-    onFinishFailed,
+    onFinish = () => { },
+    onFinishFailed = () => { },
     className
-}){
+}) {
     const [formInstance] = new useForm(form)
 
     formInstance.setCallbacks({
@@ -17,7 +17,7 @@ export default function Form ({
 
     return (
         <form
-            onSubmit={(e)=>{
+            onSubmit={(e) => {
                 e.preventDefault()
                 formInstance.submit()
             }}
