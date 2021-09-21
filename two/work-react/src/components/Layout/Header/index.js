@@ -50,7 +50,7 @@ function Header({
         </div>
       </div>
       <div className="flex items-center">
-        <img className="w-6 h-6 rounded-full" alt={"profile"} src={userInfo.imgLink}></img>
+        {userInfo.imgLink && <img className="w-6 h-6 rounded-full" alt={"profile"} src={userInfo.imgLink}></img>}
         <span className="mx-2 text-xs">{`${userInfo.name}(${userInfo.username})`}</span>
         <div
           onClick={() => {
