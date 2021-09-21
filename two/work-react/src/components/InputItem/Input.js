@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 
 export default function Input(props) {
 
-    const { value, label, required, placeholder, onChange, labelClassName, err } = props
+    const { value, type, label, required, placeholder, onChange, labelClassName, err } = props
 
     return (
         <div className="flex flex-row items-center justify-between my-6">
@@ -14,6 +14,7 @@ export default function Input(props) {
                 <input
                     value={value || ""}
                     placeholder={placeholder}
+                    type={type || 'text'}
                     onChange={onChange}
                     style={{ border: err ? '1px solid #FF0000' : '1px solid #DDDDDD', width: '300px', fontSize: '13px', padding: '10px 5px' }}
                 />
