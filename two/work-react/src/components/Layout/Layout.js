@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useContextSelector } from "use-context-selector";
 import { context } from "@/stores/context";
-import FieldContext from "@/stores/FieldContext"
 import api from "@api/index";
 import toast from "@components/Toast/Toast";
 import Modal from "@/components/Modal";
-import Input from "@components/InputItem/Input";
 import Form, { Field } from "@components/Form";
+import Input from "@components/InputItem/Input";
 import Header from "./Header/index";
 import Drawer from "./Drawer";
 
@@ -16,22 +15,13 @@ export default function Wrapper({
   children,
 }) {
 
-  const nameRules = { required: true, msg: "請輸入使用者名稱" }
-
   const [form] = Form.useForm()
+  const nameRules = { required: true, msg: "請輸入使用者名稱" }
 
   const [isShowDialog, setIsShowDialog] = useState(false);
 
   const userInfo = useContextSelector(context, (state) => state.userInfo[0]);
   const setUserInfo = useContextSelector(context, (state) => state.userInfo[1]);
-
-  const onFinish = (data) => {
-    onSubmit(data)
-  }
-
-  const onFinishFailed = (val) => {
-    // React.$commonTool.devConsole("onFinishFailed", val)
-  }
 
   useEffect(() => {
     if (userInfo.name) return;
@@ -56,6 +46,10 @@ export default function Wrapper({
       });
   }, []);
 
+  const onFinish = (data) => {
+    onSubmit(data)
+  }
+
   const onSubmit = (data) => {
     api()
       .put(
@@ -71,7 +65,7 @@ export default function Wrapper({
       .then((res) => {
         if (res.success) {
           toast.success(res.message);
-          setUserInfo({...userInfo, name: data.name})
+          setUserInfo({ ...userInfo, name: data.name })
           setIsShowDialog(false);
         } else {
           toast.error(res.message);
@@ -96,8 +90,7 @@ export default function Wrapper({
         onBackDropClick={() => { return false }}
         ModalActions={<></>}
       >
-        {/* <div className="relative bg-white px-8 py-6 text-center"> */}
-        <Form className="text-center" form={form} onFinish={onFinish} onFinishFailed={onFinishFailed}>
+        <Form className="text-center" form={form} onFinish={onFinish}>
           <Field name="name" rules={[nameRules]}>
             <Input
               label="使用者名稱"
@@ -111,7 +104,6 @@ export default function Wrapper({
             value={'確定'}
           />
         </Form>
-        {/* </div> */}
       </Modal>
     </div>
   );
