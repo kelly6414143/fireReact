@@ -16,6 +16,7 @@ React, react-dom, react-router, react-router-dom, tailwindcss, react-transition-
 
 1. 優化api集中管理-進階配置 
 2. 優化context管理(理解provider get/set)
+3. 優化menu轉為組件化
 
 ### 開始中
 
