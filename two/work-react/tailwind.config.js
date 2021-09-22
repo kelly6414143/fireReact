@@ -34,7 +34,8 @@ module.exports = {
         'full': '100%',
         '50': '50px',
         '100': '100px',
-        '450': '450px'
+        '450': '450px',
+        'minContent': 'min-content'
       },
       maxWidth: {
         '0': '0',
