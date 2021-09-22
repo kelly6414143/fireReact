@@ -26,7 +26,7 @@ export default function Dialog({
                 className="absolute inset-0 z-0"
                 onClick={onBackDropClick || onClose}
             />
-            <div className={`absolute bg-white w-450 max-h-450 rounded-xl flex flex-col justify-between items-center border border-gray-800 z-10 overflow-y-scroll ${contentClassName}`}>
+            <div className={`absolute bg-white w-450 max-h-450 rounded-xl flex flex-col justify-between items-center border border-gray-800 z-10 overflow-y-auto ${contentClassName}`}>
                {children}
             </div>
         </div>, document.getElementById('dialog')
