@@ -42,7 +42,7 @@ export default function Field (props){
                 validateField(props)
             },
             err: getInputErr(name),
-            required: rules[0].required
+            required: rules && rules[0].required
         }
     }
 
