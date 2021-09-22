@@ -20,12 +20,10 @@ React, react-dom, react-router, react-router-dom, tailwindcss, react-transition-
 
 ### 開始中
 
-1. 表單組件化(form/ inputItem)
-
 #### 修改q1的bug及建議事項
 
 1. ~~package 裝了就要用，沒用就砍掉，如 use-context-selector~~
-2. 一下 class 一下 function component，class 處理得內容也不是 function 不能處理的(如錯誤邊界)，你是義大利廚師嗎？官方建議新專案全用 function，除非 function 做不到的再用 class
+2. ~~一下 class 一下 function component，class 處理得內容也不是 function 不能處理的(如錯誤邊界)，你是義大利廚師嗎？官方建議新專案全用 function，除非 function 做不到的再用 class~~
 3. ~~你想語意化標籤要放對位置啊，不然一律全使用 div，反正是後台，header 標籤使用有問題~~
 4. ~~你的 router 是在打太極嗎，包了又包也沒抽象，怎不直接 config + map 處理就好呀？~~
 5. 建議任何輸入/輸出組件要有組內自制及組外控制的機制，意思為不傳 value 組件能動，傳 value 也能讓傳入方改變組件的值，但如果是開發專案的話不這麼做也沒差，但建議做
@@ -41,7 +39,7 @@ React, react-dom, react-router, react-router-dom, tailwindcss, react-transition-
 15. ~~404 不用搓驗證 api，而且進不到你的 404 頁面~~
 16. ~~測試 console 一律建議砍掉，或是 dev 下可見~~
 17. onLogin 都一樣的 code 就復用
-18. 表單驗證請由組件驅動，因為你都封裝組件了，就該讓他驅動
+18. ~~表單驗證請由組件驅動，因為你都封裝組件了，就該讓他驅動~~
 19. ~~import 路徑建議一律 alias 處理~~
     - 由於此專案是使用cra建置, wepback設定已經寫在react-scripts腳本中, 故無法直接使用webpack.config.js去改變webpack設置, 以此專案的啟動方式craco去改變, 故使用方式為在`craco.config.js`底下增加alias資訊
     ```=javascript
@@ -71,6 +69,7 @@ React, react-dom, react-router, react-router-dom, tailwindcss, react-transition-
 9. 圖檔上傳 (9/12 完成, 上傳圖檔 9/15完成)
 10. 縮小側邊欄 (9/12 完成)
 11. Dialog改為DOMRender渲染 (9/19 完成)
+12. 表單組件化(form/ inputItem) (9/22 更換完成)
 
 
 
