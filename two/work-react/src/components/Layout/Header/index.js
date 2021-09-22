@@ -51,7 +51,7 @@ function Header({
       </div>
       <div className="flex items-center">
         {userInfo.imgLink && <img className="w-6 h-6 rounded-full" alt={"profile"} src={userInfo.imgLink}></img>}
-        <span className="mx-2 text-xs">{`${userInfo.name}(${userInfo.username})`}</span>
+        <span className="mx-2 text-xs">{`${userInfo.name || ""}(${userInfo.username})`}</span>
         <div
           onClick={() => {
             replace("/login");
