@@ -16,7 +16,7 @@ export default function Login({ history }) {
 
     const [form] = Form.useForm()
     const usernameRules = { required: true, msg: "必須是信箱", validator: 'email' }
-    const passwordRules = { required: true, msg: "4-8字元；首尾必須是英文；中間必須是數字", validator: /^[A-z]\d{2,6}[A-z]$/ }
+    const passwordRules = { required: true, msg: "4-8字元；首尾必須是英文；中間必須是數字", validator: (val)=> /^[A-z]\d{2,6}[A-z]$/.test(val) }
 
 
     const onFinish = (data) => {
@@ -49,7 +49,7 @@ export default function Login({ history }) {
 
     return (
         <>
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-6 mx-auto bg-white rounded-xl shadow-lg items-center max-w-1/2 flex flex-col justify-start">
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-6 mx-auto bg-white rounded-xl shadow-lg items-center max-w-1/2 min-w-450 flex flex-col justify-start">
                 <div className="text-center text-xl font-bold">登入</div>
                 <Form className="text-center" form={form} onFinish={onFinish}>
                     <Field name="username" rules={[usernameRules]}>
