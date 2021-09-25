@@ -20,7 +20,7 @@ function Header({
 
   return (
     <div
-      className={`flex justify-between items-center p-6 border border-gray-800 ${containerClassName}`}
+      className={`flex justify-between items-center p-6 border-b border-gray-800 ${containerClassName}`}
     >
       <div className="flex">
         <div
