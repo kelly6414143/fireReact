@@ -2,16 +2,24 @@ import React, { useEffect, useState } from "react";
 import { Link, withRouter } from "react-router-dom";
 import { Transition } from "react-transition-group";
 import { useContextSelector } from "use-context-selector";
-import { context } from "@/stores/context";
+import { DrawerContext } from "@/stores/DrawerContext"
 
 function Drawer(props) {
   const { history } = props;
 
-  const [drawerContent, setDrawerContent] = useState([]);
-
   const drawerInfo = useContextSelector(
-    context,
-    (state) => state.drawerInfo[0]
+    DrawerContext,
+    (state) => state.getDrawerInfo
+  );
+
+  const drawerContent = useContextSelector(
+    DrawerContext,
+    (state) => state.getMenuInfo
+  );
+
+  const setDrawerContent = useContextSelector(
+    DrawerContext,
+    (state) => state.setMenuInfo
   );
 
   const content = [
@@ -42,7 +50,7 @@ function Drawer(props) {
   ];
 
   useEffect(() => {
-    onConstructDrawerContent();
+    drawerContent.length === 0 && onConstructDrawerContent();
   }, []);
 
   const onConstructDrawerContent = () => {

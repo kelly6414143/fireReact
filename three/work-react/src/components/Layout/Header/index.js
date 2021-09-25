@@ -2,20 +2,22 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import { useContextSelector } from "use-context-selector";
 import { context } from "@/stores/context";
+import { DrawerContext } from "@/stores/DrawerContext"
 
 function Header({
-    history: { replace },
-    containerClassName,
-  }) {
+  history: { replace },
+  containerClassName,
+}) {
 
   const userInfo = useContextSelector(context, (state) => state.userInfo[0]);
+
   const drawerInfo = useContextSelector(
-    context,
-    (state) => state.drawerInfo[0]
+    DrawerContext,
+    (state) => state.getDrawerInfo
   );
   const setDrawerInfo = useContextSelector(
-    context,
-    (state) => state.drawerInfo[1]
+    DrawerContext,
+    (state) => state.setDrawerInfo
   );
 
   return (
