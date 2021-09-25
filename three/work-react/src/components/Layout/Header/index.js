@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { withRouter } from "react-router-dom";
 import { useContextSelector } from "use-context-selector";
 import { context } from "@/stores/context";
@@ -19,6 +19,15 @@ function Header({
     DrawerContext,
     (state) => state.setDrawerInfo
   );
+
+  const clearMenuInfoChildShow = useContextSelector(
+    DrawerContext,
+    (state) => state.clearMenuInfoChildShow
+  );
+
+  useEffect(()=>{
+    clearMenuInfoChildShow()
+  },[drawerInfo])
 
   return (
     <div
