@@ -32,7 +32,10 @@ function axiosMaps() {
     });
 
 
-    const post = (url, param, header = {}) => {
+    const post = (url, param, header = {
+        ContentType: "application/x-www-form-urlencoded",
+        Authorization: "Bearer " + sessionStorage["userToken"],
+    }) => {
         return instance.post(url, param, header).then((res) => {
             React.$commonTool.devConsole('postres', res)
             return res
@@ -42,8 +45,11 @@ function axiosMaps() {
         })
     }
 
-    const get = (url, header = {}) => {
-        return instance.get(url, header).then((res) => {
+    const get = (url, params, header = {
+        ContentType: "application/x-www-form-urlencoded",
+        Authorization: "Bearer " + sessionStorage["userToken"],
+    }) => {
+        return instance.get(url, { params: params, headers: header }).then((res) => {
             React.$commonTool.devConsole('postres', res)
             return res
         }).catch((error) => {
@@ -52,7 +58,10 @@ function axiosMaps() {
         })
     }
 
-    const put = (url, param, header = {}) => {
+    const put = (url, param, header = {
+        ContentType: "application/x-www-form-urlencoded",
+        Authorization: "Bearer " + sessionStorage["userToken"],
+    }) => {
         return instance.put(url, param, header).then((res) => {
             React.$commonTool.devConsole('postres', res)
             return res
