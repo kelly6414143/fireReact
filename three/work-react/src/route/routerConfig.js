@@ -66,7 +66,7 @@ const routerConfig = [
   {
     path: "/users",
     isPrivate: true,
-    auth: "ADMIN",
+    // auth: "ADMIN",
     component: (props) => {
       return (
         <AsyncComponent>

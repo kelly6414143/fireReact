@@ -8,7 +8,6 @@ function Drawer(props) {
   const { history } = props;
 
   const [drawerContent, setDrawerContent] = useState([]);
-  const [isShowChild, setIsShowChild] = useState(false);
 
   const drawerInfo = useContextSelector(
     context,
@@ -18,6 +17,7 @@ function Drawer(props) {
   const content = [
     {
       name: "個人資訊管理",
+      isShowChild: false,
       children: [
         {
           name: "帳戶設定",
@@ -27,8 +27,17 @@ function Drawer(props) {
     },
     {
       name: "會員管理",
-      path: "/users",
-      auth: "ADMIN",
+      isShowChild: false,
+      children: [
+        {
+          name: "列表式",
+          path: "/users",
+        },
+        {
+          name: "表格式",
+          path: "/users",
+        },
+      ],
     },
   ];
 
@@ -46,22 +55,48 @@ function Drawer(props) {
     setDrawerContent(newContent);
   };
 
+  const onChangeDrawerContent = (item) => {
+    const tempArr = Object.assign([], drawerContent)
+    tempArr.forEach((el) => {
+      if (el.name === item.name) {
+        el.isShowChild = !el.isShowChild
+      } else {
+        el.isShowChild = false
+      }
+    });
+    setDrawerContent(tempArr);
+  };
+
   const RenderItem = (item, index) => {
     const children = item.children;
+
+    React.$commonTool.devConsole('RenderItem', item)
 
     if (drawerInfo.isExtendDrawer) {
       return (
         <div key={index}>
-          <Link
-            to={item.path || item.children[0].path}
-            className={`block ${history.location.pathname === item.path &&
-              "bg-gray-900 text-white"
-              } px-2 py-1`}
-          >
-            {children && <span>+</span>}
-            {item.name}
-          </Link>
-          {children && children.map((el, idx) => RenderItem(el, idx))}
+          {children ? (
+            <>
+              <div
+                className={`block ${history.location.pathname === item.path &&
+                  "bg-gray-900 text-white"
+                  } px-2 py-1`}
+                onClick={() => onChangeDrawerContent(item)}
+              >
+                <span>+</span>{item.name}
+              </div>
+              {item.isShowChild && children && children.map((el, idx) => RenderItem(el, idx))}
+            </>
+          ) : (
+            <Link
+              to={item.path || item.children[0].path}
+              className={`block ${history.location.pathname === item.path &&
+                "bg-gray-900 text-white"
+                } px-2 py-1`}
+            >
+              {item.name}
+            </Link>
+          )}
         </div>
       );
     } else {
@@ -70,15 +105,15 @@ function Drawer(props) {
           {children ? (
             <div
               className={`relative ${children.filter((el) => el.path === history.location.pathname)
-                  .length > 0 && "bg-gray-900 text-white"
+                .length > 0 && "bg-gray-900 text-white"
                 }`}
               onClick={() => {
-                setIsShowChild(!isShowChild);
+                onChangeDrawerContent(item)
               }}
             >
               + {item.name.slice(0, 1)}
               <div className="absolute left-full top-1/2">
-                {isShowChild &&
+                {item.isShowChild &&
                   <div className=" whitespace-nowrap bg-white border border-black">
                     {
                       children.map((el, idx) => (
@@ -141,7 +176,7 @@ function Drawer(props) {
           {drawerContent.map((el, index) => (
             <div
               key={index}
-              className={`py-3 mx-3 ${drawerContent.length - 1 > index && "border-b"
+              className={`py-3 mx-3 ${drawerContent.length - 1 > index && "border-b-2"
                 } border-gray-500`}
             >
               {RenderItem(el, index)}
