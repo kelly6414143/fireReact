@@ -1,7 +1,5 @@
 import React, { useRef } from "react";
 
-let tempErr = null;
-
 class FormStore {
   constructor() {
     this.store = {}; //狀態庫
@@ -160,11 +158,6 @@ class FormStore {
 
     this.fieldEntities.forEach((entity) => {
       entity.onStoreChange();
-      // (tempErr || err).forEach((k) => {
-      //     if (k.name === entity.name) {
-      //         entity.onStoreChange()
-      //     }
-      // })
     });
   };
 
