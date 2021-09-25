@@ -15,8 +15,10 @@ export default function Login({ history }) {
     const setUserInfo = useContextSelector(context, state => state.userInfo[1]);
 
     const [form] = Form.useForm()
-    const usernameRules = { required: true, msg: "必須是信箱", validator: 'email' }
-    const passwordRules = { required: true, msg: "4-8字元；首尾必須是英文；中間必須是數字", validator: (val)=> /^[A-z]\d{2,6}[A-z]$/.test(val) }
+    // const usernameRules = { required: true, msg: "必須是信箱", validator: 'email' }
+    // const passwordRules = { required: true, msg: "4-8字元；首尾必須是英文；中間必須是數字", validator: (val)=> /^[A-z]\d{2,6}[A-z]$/.test(val) }
+    const usernameRules = { required: true, msg: "請輸入帳號" }
+    const passwordRules = { required: true, msg: "請輸入密碼" }
 
 
     const onFinish = (data) => {
@@ -56,14 +58,14 @@ export default function Login({ history }) {
                         <Input
                             label="帳號"
                             type="text"
-                            placeholder={"必須是信箱"}
+                            placeholder={"請輸入帳號"}
                         />
                     </Field>
                     <Field name="password" rules={[passwordRules]}>
                         <Input
                             label="密碼"
                             type="password"
-                            placeholder={"4-8字元；首尾必須是英文；中間必須是數字"}
+                            placeholder={"請輸入密碼"}
                         />
                     </Field>
                     <div className="flex flex-col justify-center w-minContent m-auto">
