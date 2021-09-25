@@ -30,6 +30,7 @@ function Drawer(props) {
         {
           name: "帳戶設定",
           path: "/account/profile-setting",
+          isClick: false
         },
       ],
     },
@@ -40,10 +41,12 @@ function Drawer(props) {
         {
           name: "列表式",
           path: "/users",
+          isClick: false
         },
         {
           name: "表格式",
           path: "/users",
+          isClick: false
         },
       ],
     },
@@ -54,13 +57,23 @@ function Drawer(props) {
   }, []);
 
   const onConstructDrawerContent = () => {
-    const newContent = content.filter((el) => {
-      if (el.auth === "ADMIN" && sessionStorage["role"] !== "ADMIN") {
-        return false;
-      }
-      return true;
+    // const newContent = content.filter((el) => {
+    //   if (el.auth === "ADMIN" && sessionStorage["role"] !== "ADMIN") {
+    //     return false;
+    //   }
+    //   return true;
+    // });
+    content.forEach((el) => {
+      el.children && el.children.forEach(child => {
+        if (history.location.pathname === child.path) {
+          child.isClick = true
+        } else {
+          child.isClick = false
+        }
+      })
     });
-    setDrawerContent(newContent);
+    setDrawerContent(content);
+    // setDrawerContent(newContent);
   };
 
   const onChangeDrawerContent = (item) => {
@@ -75,87 +88,81 @@ function Drawer(props) {
     setDrawerContent(tempArr);
   };
 
+  const onClickChildMenu = (e, item) => {
+    e.stopPropagation()
+    const tempArr = Object.assign([], drawerContent)
+    tempArr.forEach((el) => {
+      el.children && el.children.forEach(child => {
+        if (child.name === item.name) {
+          child.isClick = true
+        } else {
+          child.isClick = false
+        }
+      })
+    });
+    setDrawerContent(tempArr);
+  }
+
   const RenderItem = (item, index) => {
     const children = item.children;
 
     React.$commonTool.devConsole('RenderItem', item)
 
-    if (drawerInfo.isExtendDrawer) {
-      return (
-        <div key={index}>
-          {children ? (
-            <>
-              <div
-                className={`block ${history.location.pathname === item.path &&
-                  "bg-gray-900 text-white"
-                  } px-2 py-1`}
-                onClick={() => onChangeDrawerContent(item)}
-              >
-                <span>+</span>{item.name}
-              </div>
-              {item.isShowChild && children && children.map((el, idx) => RenderItem(el, idx))}
-            </>
-          ) : (
-            <Link
-              to={item.path || item.children[0].path}
-              className={`block ${history.location.pathname === item.path &&
-                "bg-gray-900 text-white"
-                } px-2 py-1`}
-            >
-              {item.name}
-            </Link>
-          )}
-        </div>
-      );
-    } else {
-      return (
-        <div key={index}>
-          {children ? (
+    return (
+      <div key={index}>
+        {children ? (
+          <>
             <div
-              className={`relative ${children.filter((el) => el.path === history.location.pathname)
-                .length > 0 && "bg-gray-900 text-white"
-                }`}
-              onClick={() => {
-                onChangeDrawerContent(item)
-              }}
+              className={`relative block ${children.filter(el => el.isClick).length > 0 &&
+                "font-bold"
+                } px-2 py-1`}
+              onClick={(e) => onChangeDrawerContent(item)}
             >
-              + {item.name.slice(0, 1)}
-              <div className="absolute left-full top-1/2">
-                {item.isShowChild &&
-                  <div className=" whitespace-nowrap bg-white border border-black">
-                    {
-                      children.map((el, idx) => (
-                        <Link
-                          to={el.path || el.children[0].path}
-                          key={idx}
-                          className={`block ${history.location.pathname === el.path &&
-                            "bg-gray-900 text-white"
-                            } px-2 py-1`}
-                        >
-                          {el.name}
-                        </Link>
-                      ))
+              {drawerInfo.isExtendDrawer ?
+                (<>
+                  {item.name}
+                  {item.isShowChild && children && children.map((el, idx) => RenderItem(el, idx))}
+                </>)
+                : (<>
+                  {item.name.slice(0, 1)}
+                  <div className="absolute left-full top-1/2">
+                    {item.isShowChild &&
+                      <div className=" whitespace-nowrap bg-white border border-black">
+                        {
+                          children.map((el, idx) => (
+                            <Link
+                              to={el.path || el.children[0].path}
+                              key={idx}
+                              className={`block ${el.isClick &&
+                                "bg-gray-900 text-white"
+                                } px-2 py-1`}
+                              onClick={(e) => onClickChildMenu(e, el)}
+                            >
+                              {el.name}
+                            </Link>
+                          ))
+                        }
+                      </div>
                     }
                   </div>
-                }
-              </div>
+                </>)}
             </div>
-          ) : (
-            <Link
-              to={item.path || item.children[0].path}
-              className={`block ${history.location.pathname === item.path &&
-                "bg-gray-900 text-white"
-                }`}
-            >
-              {item.name.slice(0, 1)}
-            </Link>
-          )}
-        </div>
-      );
-    }
+          </>
+        ) : (
+          <Link
+            to={item.path || item.children[0].path}
+            className={`block ${item.isClick &&
+              "bg-gray-900 text-white"
+              } px-2 py-1`}
+            onClick={(e) => onClickChildMenu(e, item)}
+          >
+            {drawerInfo.isExtendDrawer ? item.name : item.name.slice(0, 1)}
+          </Link>
+        )}
+      </div>
+    );
   };
 
-  // React.$commonTool.devConsole('drawer', drawerContent)
   const duration = 500;
 
   const defaultStyle = {

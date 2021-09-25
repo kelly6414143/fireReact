@@ -20,14 +20,14 @@ function Header({
     (state) => state.setDrawerInfo
   );
 
-  const clearMenuInfoChildShow = useContextSelector(
-    DrawerContext,
-    (state) => state.clearMenuInfoChildShow
-  );
+  // const clearMenuInfoChildShow = useContextSelector(
+  //   DrawerContext,
+  //   (state) => state.clearMenuInfoChildShow
+  // );
 
-  useEffect(()=>{
-    clearMenuInfoChildShow()
-  },[drawerInfo])
+  // useEffect(()=>{
+  //   clearMenuInfoChildShow()
+  // },[drawerInfo])
 
   return (
     <div
