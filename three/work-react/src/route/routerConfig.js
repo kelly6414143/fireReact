@@ -78,6 +78,20 @@ const routerConfig = [
     },
   },
   {
+    path: "/users/rowDisplay",
+    isPrivate: true,
+    // auth: "ADMIN",
+    component: (props) => {
+      return (
+        <AsyncComponent>
+          <Layout {...props}>
+            <UserManagement {...props} />
+          </Layout>
+        </AsyncComponent>
+      );
+    },
+  },
+  {
     path: "/*",
     name: "404",
     component: (props) => {

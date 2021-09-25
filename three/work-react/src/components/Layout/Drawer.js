@@ -40,7 +40,7 @@ function Drawer(props) {
       children: [
         {
           name: "列表式",
-          path: "/users",
+          path: "/users/rowDisplay",
           isClick: false
         },
         {
