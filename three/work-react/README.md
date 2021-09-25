@@ -14,12 +14,16 @@ React, react-dom, react-router, react-router-dom, tailwindcss, react-transition-
 
 ### 未開始
 
-1. 優化api集中管理-進階配置 
-2. 優化context管理(理解provider get/set)
-3. 優化menu轉為組件化
-4. 優化Validtor
+1. 『表格式』使用者資料
+2. 優化api集中管理-進階配置 
+3. 優化context管理(理解provider get/set)
+4. menu轉為組件化
+5. 優化Validtor
 
 ### 開始中
+
+1. 優化drawer menu交互
+2. 『列表式』使用者資料
 
 ### 完成
 
