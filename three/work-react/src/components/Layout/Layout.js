@@ -74,12 +74,12 @@ export default function Wrapper({
   };
 
   return (
-    <div>
+    <div className="border border-gray-800">
       <Header
         routes={routes}
         containerClassName="mb-2"
       />
-      <div className="flex border border-gray-800">
+      <div className="flex border-t border-gray-800">
         <Drawer />
         <div className="w-full p-3">{children}</div>
       </div>
