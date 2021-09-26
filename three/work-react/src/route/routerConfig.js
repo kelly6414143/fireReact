@@ -3,7 +3,8 @@ import React, { Suspense, lazy, Children } from "react";
 const Layout = lazy(() => import("@components/Layout/Layout"));
 const Home = lazy(() => import("@/pages/Home"));
 const ProfileSetting = lazy(() => import("@/pages/ProfileSetting"));
-const UserManagement = lazy(() => import("@/pages/users/UserManagement"));
+const UserManagementRow = lazy(() => import("@/pages/users/UserManagementRow"));
+const UserManagementTable = lazy(() => import("@/pages/users/UserManagementTable"));
 const UserDetail = lazy(() => import("@/pages/users/UserDetail"));
 const Register = lazy(() => import("@/pages/Register"));
 const Login = lazy(() => import("@/pages/Login"));
@@ -65,7 +66,7 @@ const routerConfig = [
     },
   },
   {
-    path: "/users",
+    path: "/users/tableDisplay",
     isPrivate: true,
     exact: true,
     // auth: "ADMIN",
@@ -73,7 +74,7 @@ const routerConfig = [
       return (
         <AsyncComponent>
           <Layout {...props}>
-            <UserManagement {...props} />
+            <UserManagementTable {...props} />
           </Layout>
         </AsyncComponent>
       );
@@ -87,7 +88,7 @@ const routerConfig = [
       return (
         <AsyncComponent>
           <Layout {...props}>
-            <UserManagement {...props} />
+            <UserManagementRow {...props} />
           </Layout>
         </AsyncComponent>
       );

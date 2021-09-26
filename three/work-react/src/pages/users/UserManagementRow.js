@@ -1,25 +1,17 @@
 import React, { useEffect, useState, useRef } from 'react'
 import api from "@api/index";
 import toast from "@components/Toast/Toast";
-import { useContextSelector } from "use-context-selector";
-import { UsersContext } from "@/stores/UsersContext"
+import usersService from '@/service/usersService';
 
-export default function UserManagementRow({ history: { replace }, history }) {
+function UserManagementRow({ history: { replace }, history, store }) {
 
-    const usersInfo = useContextSelector(
-        UsersContext,
-        (state) => state.getUsersInfo
-    );
-
-    const setUsersInfo = useContextSelector(
-        UsersContext,
-        (state) => state.setUsersInfo
-    );
-
-    const setClearUserInfo = useContextSelector(
-        UsersContext,
-        (state) => state.setClearUserInfo
-    );
+    const {
+        usersInfo,
+        setUsersInfo,
+        setClearUserInfo,
+        onHandleGetUser,
+        onGoDetail
+    } = store
 
     const [message, setMessage] = useState("獲取更多數據中...")
     const [currentScrollTop, setCurrentScrollTop] = useState(0)
@@ -30,29 +22,14 @@ export default function UserManagementRow({ history: { replace }, history }) {
         !usersInfo?.users && onHandleGetUser({ page: 0, size: 15 })
         usersInfo?.currentPosition && (scrollRef.current.scrollTop = usersInfo.currentPosition.scrollY)
         return () => {
-            if(history.location.pathname === "/users/userDetail") return
+            if (history.location.pathname === "/users/userDetail") return
             setClearUserInfo()
         }
     }, [])
 
-    const onHandleGetUser = (params) => {
-        api()
-            .get("/api/users", params)
-            .then((res) => {
-                if (res.success) {
-                    const users = usersInfo?.users || []
-                    setUsersInfo({ users: [...users, ...res.data.content], pageInfo: { ...params, total: res.data.total } })
-                    toast.success(res.message);
-                } else {
-                    toast.error(res.message);
-                    replace("/login");
-                }
-            });
-    }
-
-    const onHandleGoDetail = ()=>{
-        setUsersInfo({...usersInfo, currentPosition: {scrollY: currentScrollTop}})
-        replace("/users/userDetail")
+    const onHandleGoDetail = () => {
+        setUsersInfo({ ...usersInfo, currentPosition: { scrollY: currentScrollTop } })
+        onGoDetail()
     }
 
     const onScroll = (e) => {
@@ -109,3 +86,4 @@ export default function UserManagementRow({ history: { replace }, history }) {
     );
 }
 
+export default usersService(UserManagementRow)
