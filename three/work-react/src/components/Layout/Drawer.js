@@ -45,7 +45,7 @@ function Drawer(props) {
         },
         {
           name: "表格式",
-          path: "/users",
+          path: "/users/tableDisplay",
           isClick: false
         },
       ],
@@ -57,12 +57,6 @@ function Drawer(props) {
   }, []);
 
   const onConstructDrawerContent = () => {
-    // const newContent = content.filter((el) => {
-    //   if (el.auth === "ADMIN" && sessionStorage["role"] !== "ADMIN") {
-    //     return false;
-    //   }
-    //   return true;
-    // });
     content.forEach((el) => {
       el.children && el.children.forEach(child => {
         if (history.location.pathname === child.path) {
@@ -73,7 +67,6 @@ function Drawer(props) {
       })
     });
     setDrawerContent(content);
-    // setDrawerContent(newContent);
   };
 
   const onChangeDrawerContent = (item) => {
@@ -94,6 +87,7 @@ function Drawer(props) {
     tempArr.forEach((el) => {
       el.children && el.children.forEach(child => {
         if (child.name === item.name) {
+          el.isShowChild = false
           child.isClick = true
         } else {
           child.isClick = false
@@ -113,9 +107,7 @@ function Drawer(props) {
         {children ? (
           <>
             <div
-              className={`relative block ${children.filter(el => el.isClick).length > 0 &&
-                "font-bold"
-                } px-2 py-1`}
+              className={`relative block px-2 py-1`}
               onClick={(e) => {
                 item.onClick && item.onClick()
                 onChangeDrawerContent(item)
@@ -123,7 +115,9 @@ function Drawer(props) {
             >
               {drawerInfo.isExtendDrawer ?
                 (<>
-                  {item.name}
+                  <span className={`${children.filter(el => el.isClick).length > 0 &&
+                    "font-bold"
+                    }`}>{item.name}</span>
                   {item.isShowChild && children && children.map((el, idx) => RenderItem(el, idx))}
                 </>)
                 : (<>
