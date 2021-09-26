@@ -106,7 +106,7 @@ function Drawer(props) {
   const RenderItem = (item, index) => {
     const children = item.children;
 
-    React.$commonTool.devConsole('RenderItem', item)
+    // React.$commonTool.devConsole('RenderItem', item)
 
     return (
       <div key={index}>
@@ -116,7 +116,10 @@ function Drawer(props) {
               className={`relative block ${children.filter(el => el.isClick).length > 0 &&
                 "font-bold"
                 } px-2 py-1`}
-              onClick={(e) => onChangeDrawerContent(item)}
+              onClick={(e) => {
+                item.onClick && item.onClick()
+                onChangeDrawerContent(item)
+              }}
             >
               {drawerInfo.isExtendDrawer ?
                 (<>
@@ -136,7 +139,10 @@ function Drawer(props) {
                               className={`block ${el.isClick &&
                                 "bg-gray-900 text-white"
                                 } px-2 py-1`}
-                              onClick={(e) => onClickChildMenu(e, el)}
+                              onClick={(e) => {
+                                el.onClick && el.onClick()
+                                onClickChildMenu(e, el)
+                              }}
                             >
                               {el.name}
                             </Link>
@@ -154,7 +160,10 @@ function Drawer(props) {
             className={`block ${item.isClick &&
               "bg-gray-900 text-white"
               } px-2 py-1`}
-            onClick={(e) => onClickChildMenu(e, item)}
+            onClick={(e) => {
+              item.onClick && item.onClick()
+              onClickChildMenu(e, item)
+            }}
           >
             {drawerInfo.isExtendDrawer ? item.name : item.name.slice(0, 1)}
           </Link>
