@@ -4,11 +4,16 @@ import { createContext } from 'use-context-selector';
 export const UsersContext = createContext(null);
 
 const UsersProvider = ({ children }) => {
-    const [usersInfo, setUsersInfo] = useState([])
+    const [usersInfo, setUsersInfo] = useState({})
+
+    const setClearUserInfo = () => {
+        setUsersInfo({})
+    }
 
     const store = {
         getUsersInfo: usersInfo,
         setUsersInfo: setUsersInfo,
+        setClearUserInfo: setClearUserInfo
     }
 
     return (
