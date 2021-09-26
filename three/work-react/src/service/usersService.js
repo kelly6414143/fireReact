@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import api from "@api/index";
 import toast from "@components/Toast/Toast";
 import { useContextSelector } from "use-context-selector";
@@ -7,9 +7,16 @@ import { UsersContext } from "@/stores/UsersContext"
 export default function usersService(Component) {
     return (props) => {
 
-        const { history: { replace } } = props
+        const { history: { replace }, history } = props
 
-        React.$commonTool.devConsole('userService', props)
+        useEffect(() => {
+            !usersInfo?.users && onHandleGetUser({ page: 0, size: 15 })
+            return () => {
+                if (history.location.pathname.indexOf('/users') > -1) return
+                setClearUserInfo()
+            }
+        }, [])
+
 
         const usersInfo = useContextSelector(
             UsersContext,

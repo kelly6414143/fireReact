@@ -3,16 +3,7 @@ import usersService from '@/service/usersService';
 
 function UserManagementTable({store, history}) {
 
-    const {usersInfo, onHandleGetUser} = store
-
-    useEffect(() => {
-        React.$commonTool.devConsole('useEffect', store, history)
-        !usersInfo?.users && onHandleGetUser({ page: 0, size: 15 })
-        // return () => {
-        //     if (history.location.pathname === "/users/userDetail") return
-        //     setClearUserInfo()
-        // }
-    }, [])
+    const {usersInfo, onHandleGetUser, setClearUserInfo} = store
 
     return (
         <>

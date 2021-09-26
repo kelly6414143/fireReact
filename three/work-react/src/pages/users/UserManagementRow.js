@@ -3,12 +3,11 @@ import api from "@api/index";
 import toast from "@components/Toast/Toast";
 import usersService from '@/service/usersService';
 
-function UserManagementRow({ history: { replace }, history, store }) {
+function UserManagementRow({ history, store }) {
 
     const {
         usersInfo,
         setUsersInfo,
-        setClearUserInfo,
         onHandleGetUser,
         onGoDetail
     } = store
@@ -19,12 +18,7 @@ function UserManagementRow({ history: { replace }, history, store }) {
     const scrollRef = useRef(null)
 
     useEffect(() => {
-        !usersInfo?.users && onHandleGetUser({ page: 0, size: 15 })
         usersInfo?.currentPosition && (scrollRef.current.scrollTop = usersInfo.currentPosition.scrollY)
-        return () => {
-            if (history.location.pathname === "/users/userDetail") return
-            setClearUserInfo()
-        }
     }, [])
 
     const onHandleGoDetail = () => {
