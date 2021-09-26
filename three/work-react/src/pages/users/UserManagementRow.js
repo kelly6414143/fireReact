@@ -4,7 +4,7 @@ import toast from "@components/Toast/Toast";
 import { useContextSelector } from "use-context-selector";
 import { UsersContext } from "@/stores/UsersContext"
 
-export default function News({ history: { replace }, history }) {
+export default function UserManagementRow({ history: { replace }, history }) {
 
     const usersInfo = useContextSelector(
         UsersContext,
