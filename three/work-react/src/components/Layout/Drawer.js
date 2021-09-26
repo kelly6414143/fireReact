@@ -87,7 +87,7 @@ function Drawer(props) {
     tempArr.forEach((el) => {
       el.children && el.children.forEach(child => {
         if (child.name === item.name) {
-          el.isShowChild = false
+          !drawerInfo.isExtendDrawer && (el.isShowChild = false)
           child.isClick = true
         } else {
           child.isClick = false
