@@ -1,9 +1,7 @@
 import React, { useEffect } from 'react'
 
-export default function UserDetail({history: {replace}}) {
+export default function UserDetail({history: {replace, goBack}}) {
 
-    useEffect(() => {
-    }, [])
 
     return (
         <>
@@ -12,7 +10,7 @@ export default function UserDetail({history: {replace}}) {
             </div>
             <span
                 className="bg-blue-500 rounded-lg px-3 py-1 m-1 text-white"
-                onClick={() => {replace("/users/rowDisplay")}}
+                onClick={() => {goBack()}}
             >返回</span>
         </>
     );
