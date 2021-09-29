@@ -1,48 +1,86 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import usersService from '@/service/usersService';
+import { useContextSelector } from "use-context-selector";
+import { UsersContext } from "@/stores/UsersContext"
 
-function UserManagementTable({ store, history }) {
+function UserManagementTable({ history: { push, location }, store }) {
 
-    const { usersInfo, onHandleGetUser, setClearUserInfo } = store
+    const {
+        usersInfo,
+        setUsersInfo,
+        onHandleGetUser,
+        onGoDetail,
+        setClearUserInfo
+    } = store
+
+    const [pageSize, setPageSize] = useState(10)
+    const [pageTotal, setPageTotal] = useState(0)
+
+    useEffect(() => {
+        console.log(usersInfo)
+        !usersInfo?.users && onHandleGetUser({ page: 0, size: 15 })
+        setPageTotal(usersInfo?.pageInfo?.total || 1)
+        setPageSize(usersInfo?.pageInfo?.size || 15)
+        return () => {
+            if (location.pathname === '/users/userDetail') return
+            setClearUserInfo()
+        }
+    }, [])
+
+    const onHandleGoDetail = () => {
+        push("/users/userDetail")
+    }
+
+    // console.log('ddddddddddddd', pageTotal, pageSize , Math.ceil(pageTotal/pageSize))
 
     return (
         <>
-            <div>
+            <div className="text-lg mb-5">
                 會員管理(表格式)
             </div>
-            <table style={{tableLayout: "auto"}}>
-                <colgroup></colgroup>
-                <thead className="ant-table-thead">
+            <table className="table-fixed w-full text-center">
+                <thead className="text-white">
                     <tr>
-                        <th className="ant-table-cell">Name</th>
-                        <th className="ant-table-cell">Name1</th>
-                        <th className="ant-table-cell">Name2</th>
-                        <th className="ant-table-cell">Name3</th>
-                        <th className="ant-table-cell">Name4</th>
+                        <th className="w-1/2 py-2 bg-gray-500 border border-black">姓名</th>
+                        <th className="w-1/2 py-2 bg-gray-500 border border-black">帳號</th>
+                        <th className="w-1/4 py-2 bg-gray-500 border border-black">角色</th>
+                        <th className="w-1/4 py-2 bg-gray-500 border border-black">操作</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td className="ant-table-cell"><a>John Brown</a></td>
-                        <td className="ant-table-cell">32</td>
-                        <td className="ant-table-cell">New York No. 1 Lake Park</td>
-                        <td className="ant-table-cell">
-                            <span className="ant-tag ant-tag-green">NICE</span>
-                            <span className="ant-tag ant-tag-geekblue">DEVELOPER</span>
-                        </td>
-                        <td className="ant-table-cell">
-                            <div className="ant-space ant-space-horizontal ant-space-align-center">
-                                <div className="ant-space-item">
-                                    <a>Invite John Brown</a>
-                                </div>
-                                <div className="ant-space-item">
-                                    <a>Delete</a>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
+                    {
+                        usersInfo?.users?.map((el, index) => {
+                            return (
+                                <tr key={index}>
+                                    <td className="py-1 border border-black">{el.name}</td>
+                                    <td className="py-1 border border-black">{el.username}</td>
+                                    <td className="py-1 border border-black">{el.role}</td>
+                                    <td className="py-1 border border-black">
+                                        <div
+                                            className="text-blue-500 cursor-pointer"
+                                        // onClick={onHandleGoDetail}
+                                        >
+                                            詳情
+                                        </div>
+                                    </td>
+                                </tr>
+                            )
+                        })
+                    }
                 </tbody>
             </table>
+            <div className="my-2 flex justify-center">
+                {
+                    new Array(Math.ceil(pageTotal / pageSize) || 1).fill(1).map((el, index) => {
+                        return (
+                            <span key={index} className={React.$commonTool.createClassName({
+                                "text-blue-500": usersInfo?.pageInfo?.page || 0 === index,
+                                "text-black": usersInfo?.pageInfo?.page || 0 !== index
+                            })}>{index + 1}</span>
+                        )
+                    })
+                }
+            </div>
         </>
     );
 }
