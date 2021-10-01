@@ -1,37 +1,64 @@
 import React, { useState, useEffect } from 'react'
-import usersService from '@/service/usersService';
+import { useLocation } from "react-router-dom";
+import api from "@api/index";
+import toast from "@components/Toast/Toast";
 import { useContextSelector } from "use-context-selector";
-import { UsersContext } from "@/stores/UsersContext"
+import { UsersTableContext } from "@/stores/UsersTableContext"
 
-function UserManagementTable({ history: { push, location }, store }) {
-
-    const {
-        usersInfo,
-        setUsersInfo,
-        onHandleGetUser,
-        onGoDetail,
-        setClearUserInfo
-    } = store
+function UserManagementTable({ history: { replace, location, push } }) {
 
     const [pageSize, setPageSize] = useState(10)
     const [pageTotal, setPageTotal] = useState(0)
 
-    useEffect(() => {
-        console.log(usersInfo)
-        !usersInfo?.users && onHandleGetUser({ page: 0, size: 15 })
-        setPageTotal(usersInfo?.pageInfo?.total || 1)
-        setPageSize(usersInfo?.pageInfo?.size || 15)
-        return () => {
-            if (location.pathname === '/users/userDetail') return
-            setClearUserInfo()
-        }
-    }, [])
-
-    const onHandleGoDetail = () => {
-        push("/users/userDetail")
+    const useQuery = () => {
+        return new URLSearchParams(useLocation().search);
     }
 
-    // console.log('ddddddddddddd', pageTotal, pageSize , Math.ceil(pageTotal/pageSize))
+    const usersInfo = useContextSelector(
+        UsersTableContext,
+        (state) => state.getUsersInfo
+    );
+
+    const setUsersInfo = useContextSelector(
+        UsersTableContext,
+        (state) => state.setUsersInfo
+    );
+
+    const setClearUserInfo = useContextSelector(
+        UsersTableContext,
+        (state) => state.setClearUserInfo
+    );
+
+    let query = useQuery().get("page");
+
+    useEffect(() => {
+        (!query || !usersInfo?.users) && onHandleGetUser({ page: 0, size: 15 })
+        setPageSize(usersInfo?.pageInfo?.size || 15)
+    }, [])
+
+    const onHandleGetUser = (params) => {
+        api()
+            .get("/api/users", params)
+            .then((res) => {
+                if (res.success) {
+                    const users = usersInfo?.users || []
+                    if(params.page === 0){
+                        setUsersInfo({ users: [...res.data.content], pageInfo: { ...params, total: res.data.total } })
+                    } else {
+                        setUsersInfo({ users: [...users, ...res.data.content], pageInfo: { ...params, total: res.data.total } })
+                    }
+                    setPageTotal(res.data.total)
+                    toast.success(res.message);
+                } else {
+                    toast.error(res.message);
+                    replace("/login");
+                }
+            });
+    }
+
+    const onHandleGoDetail = (page) => {
+        push(`/users/userDetail?page=${page}`)
+    }
 
     return (
         <>
@@ -58,7 +85,7 @@ function UserManagementTable({ history: { push, location }, store }) {
                                     <td className="py-1 border border-black">
                                         <div
                                             className="text-blue-500 cursor-pointer"
-                                        // onClick={onHandleGoDetail}
+                                        onClick={()=>onHandleGoDetail(usersInfo.pageInfo.page + 1)}
                                         >
                                             詳情
                                         </div>
@@ -85,5 +112,5 @@ function UserManagementTable({ history: { push, location }, store }) {
     );
 }
 
-export default usersService(UserManagementTable)
+export default UserManagementTable
 

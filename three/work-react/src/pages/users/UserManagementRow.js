@@ -1,29 +1,65 @@
 import React, { useEffect, useState, useRef } from 'react'
+import { useLocation } from "react-router-dom";
 import api from "@api/index";
 import toast from "@components/Toast/Toast";
-import usersService from '@/service/usersService';
+import { useContextSelector } from "use-context-selector";
+import { UsersRowContext } from "@/stores/UsersRowContext"
 
-function UserManagementRow({ history, store }) {
-
-    const {
-        usersInfo,
-        setUsersInfo,
-        onHandleGetUser,
-        onGoDetail
-    } = store
+function UserManagementRow({ history: { replace, location, push } }) {
 
     const [message, setMessage] = useState("獲取更多數據中...")
-    const [currentScrollTop, setCurrentScrollTop] = useState(0)
-
+    // const [currentScrollTop, setCurrentScrollTop] = useState(0)
     const scrollRef = useRef(null)
 
+    const useQuery = () => {
+        return new URLSearchParams(useLocation().search);
+    }
+
+    const usersInfo = useContextSelector(
+        UsersRowContext,
+        (state) => state.getUsersInfo
+    );
+
+    const setUsersInfo = useContextSelector(
+        UsersRowContext,
+        (state) => state.setUsersInfo
+    );
+
+    const setClearUserInfo = useContextSelector(
+        UsersRowContext,
+        (state) => state.setClearUserInfo
+    );
+
+    let query = useQuery().get("row");
+
     useEffect(() => {
-        usersInfo?.currentPosition && (scrollRef.current.scrollTop = usersInfo.currentPosition.scrollY)
+        React.$commonTool.devConsole("row", query, query || !usersInfo?.users);
+        (!query || !usersInfo?.users) && onHandleGetUser({ page: 0, size: 15 })
+        // usersInfo?.currentPosition && (scrollRef.current.scrollTop = usersInfo.currentPosition.scrollY)
     }, [])
 
-    const onHandleGoDetail = () => {
-        setUsersInfo({ ...usersInfo, currentPosition: { scrollY: currentScrollTop } })
-        onGoDetail()
+    const onHandleGetUser = (params) => {
+        api()
+            .get("/api/users", params)
+            .then((res) => {
+                if (res.success) {
+                    const users = usersInfo?.users || []
+                    if(params.page === 0){
+                        setUsersInfo({ users: [...res.data.content], pageInfo: { ...params, total: res.data.total } })
+                    } else {
+                        setUsersInfo({ users: [...users, ...res.data.content], pageInfo: { ...params, total: res.data.total } })
+                    }
+                    toast.success(res.message);
+                } else {
+                    toast.error(res.message);
+                    replace("/login");
+                }
+            });
+    }
+
+    const onHandleGoDetail = (row) => {
+        // setUsersInfo({ ...usersInfo, currentPosition: { scrollY: currentScrollTop } })
+        push(`/users/userDetail?row=${row}`)
     }
 
     const onScroll = (e) => {
@@ -33,7 +69,7 @@ function UserManagementRow({ history, store }) {
             clientHeight,
         } = e.target
 
-        setCurrentScrollTop(scrollTop)
+        // setCurrentScrollTop(scrollTop)
 
         const { pageInfo } = usersInfo
         if (scrollTop + clientHeight === scrollHeight && (pageInfo?.page + 1) * pageInfo?.size < pageInfo?.total) {
@@ -66,7 +102,7 @@ function UserManagementRow({ history, store }) {
                                 </div>
                                 <div
                                     className="text-blue-500 mr-10 cursor-pointer"
-                                    onClick={onHandleGoDetail}
+                                    onClick={()=>onHandleGoDetail(index+1)}
                                 >
                                     詳情
                                 </div>
@@ -80,4 +116,4 @@ function UserManagementRow({ history, store }) {
     );
 }
 
-export default usersService(UserManagementRow)
+export default UserManagementRow

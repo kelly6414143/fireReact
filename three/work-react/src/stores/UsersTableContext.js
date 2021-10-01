@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { createContext } from 'use-context-selector';
 
-export const UsersContext = createContext(null);
+export const UsersTableContext = createContext(null);
 
-const UsersProvider = ({ children }) => {
+const UsersTableProvider = ({ children }) => {
     const [usersInfo, setUsersInfo] = useState({})
 
     const setClearUserInfo = () => {
@@ -17,10 +17,10 @@ const UsersProvider = ({ children }) => {
     }
 
     return (
-        <UsersContext.Provider value={store}>
+        <UsersTableContext.Provider value={store}>
             {children}
-        </UsersContext.Provider>
+        </UsersTableContext.Provider>
     );
 };
 
-export default UsersProvider;
+export default UsersTableProvider;
