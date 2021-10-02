@@ -1,3 +1,5 @@
+import React from "react"
+
 export const devConsole = (...parameter) => {
     if (process.env.NODE_ENV === "development") {
         console.log(...parameter)
@@ -7,7 +9,7 @@ export const devConsole = (...parameter) => {
 export const createClassName = (param) => {
     let tempArr = []
     Object.keys(param).forEach((el, index)=>{
-        if(el[index]) {
+        if(param[el]) {
             tempArr.push(el)
         }
     })
