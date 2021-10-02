@@ -25,17 +25,12 @@ function UserManagementRow({ history: { replace, location, push } }) {
         (state) => state.setUsersInfo
     );
 
-    const setClearUserInfo = useContextSelector(
-        UsersRowContext,
-        (state) => state.setClearUserInfo
-    );
-
     let query = useQuery().get("row");
 
     useEffect(() => {
-        React.$commonTool.devConsole("row", query, query || !usersInfo?.users);
-        (!query || !usersInfo?.users) && onHandleGetUser({ page: 0, size: 15 })
-        // usersInfo?.currentPosition && (scrollRef.current.scrollTop = usersInfo.currentPosition.scrollY)
+        (!query || !usersInfo?.users) && onHandleGetUser({ page: 0, size: 15 });
+        (query && usersInfo?.users) && (scrollRef.current.scrollTop = (scrollRef.current.childNodes[query - 1].clientHeight + 14) * (query - 1))
+
     }, [])
 
     const onHandleGetUser = (params) => {
@@ -44,7 +39,7 @@ function UserManagementRow({ history: { replace, location, push } }) {
             .then((res) => {
                 if (res.success) {
                     const users = usersInfo?.users || []
-                    if(params.page === 0){
+                    if (params.page === 0) {
                         setUsersInfo({ users: [...res.data.content], pageInfo: { ...params, total: res.data.total } })
                     } else {
                         setUsersInfo({ users: [...users, ...res.data.content], pageInfo: { ...params, total: res.data.total } })
@@ -68,8 +63,6 @@ function UserManagementRow({ history: { replace, location, push } }) {
             scrollHeight,
             clientHeight,
         } = e.target
-
-        // setCurrentScrollTop(scrollTop)
 
         const { pageInfo } = usersInfo
         if (scrollTop + clientHeight === scrollHeight && (pageInfo?.page + 1) * pageInfo?.size < pageInfo?.total) {
@@ -102,7 +95,7 @@ function UserManagementRow({ history: { replace, location, push } }) {
                                 </div>
                                 <div
                                     className="text-blue-500 mr-10 cursor-pointer"
-                                    onClick={()=>onHandleGoDetail(index+1)}
+                                    onClick={() => onHandleGoDetail(index + 1)}
                                 >
                                     詳情
                                 </div>
