@@ -7,7 +7,7 @@ import { UsersTableContext } from "@/stores/UsersTableContext"
 
 function UserManagementTable({ history: { replace, location, push } }) {
 
-    const [pageSize, setPageSize] = useState(10)
+    const [pageSize, setPageSize] = useState(15)
     const [pageTotal, setPageTotal] = useState(0)
 
     const useQuery = () => {
@@ -24,16 +24,12 @@ function UserManagementTable({ history: { replace, location, push } }) {
         (state) => state.setUsersInfo
     );
 
-    const setClearUserInfo = useContextSelector(
-        UsersTableContext,
-        (state) => state.setClearUserInfo
-    );
-
     let query = useQuery().get("page");
 
     useEffect(() => {
-        (!query || !usersInfo?.users) && onHandleGetUser({ page: 0, size: 15 })
-        setPageSize(usersInfo?.pageInfo?.size || 15)
+        (!query || !usersInfo?.users) && onHandleGetUser({ page: query > 0 ? query - 1 : 0, size: pageSize })
+        setPageSize(usersInfo?.pageInfo?.size || pageSize)
+        setPageTotal(usersInfo?.pageInfo?.total || pageTotal)
     }, [])
 
     const onHandleGetUser = (params) => {
@@ -41,12 +37,7 @@ function UserManagementTable({ history: { replace, location, push } }) {
             .get("/api/users", params)
             .then((res) => {
                 if (res.success) {
-                    const users = usersInfo?.users || []
-                    if(params.page === 0){
-                        setUsersInfo({ users: [...res.data.content], pageInfo: { ...params, total: res.data.total } })
-                    } else {
-                        setUsersInfo({ users: [...users, ...res.data.content], pageInfo: { ...params, total: res.data.total } })
-                    }
+                    setUsersInfo({ users: [...res.data.content], pageInfo: { ...params, total: res.data.total } })
                     setPageTotal(res.data.total)
                     toast.success(res.message);
                 } else {
@@ -85,7 +76,7 @@ function UserManagementTable({ history: { replace, location, push } }) {
                                     <td className="py-1 border border-black">
                                         <div
                                             className="text-blue-500 cursor-pointer"
-                                        onClick={()=>onHandleGoDetail(usersInfo.pageInfo.page + 1)}
+                                            onClick={() => onHandleGoDetail(usersInfo.pageInfo.page + 1)}
                                         >
                                             詳情
                                         </div>
@@ -98,12 +89,18 @@ function UserManagementTable({ history: { replace, location, push } }) {
             </table>
             <div className="my-2 flex justify-center">
                 {
-                    new Array(Math.ceil(pageTotal / pageSize) || 1).fill(1).map((el, index) => {
+                    pageTotal > 0 && new Array(Math.ceil(pageTotal / pageSize)).fill(1).map((el, index) => {
                         return (
-                            <span key={index} className={React.$commonTool.createClassName({
-                                "text-blue-500": usersInfo?.pageInfo?.page || 0 === index,
-                                "text-black": usersInfo?.pageInfo?.page || 0 !== index
-                            })}>{index + 1}</span>
+                            <span
+                                key={index}
+                                className={React.$commonTool.createClassName({
+                                    "text-blue-500": (usersInfo?.pageInfo?.page || 0) === index,
+                                    "text-black": (usersInfo?.pageInfo?.page || 0) !== index,
+                                    "mx-2": true,
+                                    "cursor-pointer": true
+                                })}
+                                onClick={() => onHandleGetUser({ page: index, size: pageSize })}
+                            >{index + 1}</span>
                         )
                     })
                 }
