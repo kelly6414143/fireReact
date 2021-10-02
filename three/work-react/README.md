@@ -19,9 +19,10 @@ React, react-dom, react-router, react-router-dom, tailwindcss, react-transition-
 
 ### 開始中
 
-1. loading頁
-2. 優化api集中管理-進階配置 
-3. 優化context管理(理解provider get/set)
+1. 表格頁碼交互作用
+2. loading頁
+3. 優化api集中管理-進階配置 
+4. 優化context管理(理解provider get/set)
 
 ### 完成
 
