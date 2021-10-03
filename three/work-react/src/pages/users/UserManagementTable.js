@@ -9,6 +9,8 @@ function UserManagementTable({ history: { replace, location, push } }) {
 
     const [pageSize, setPageSize] = useState(15)
     const [pageTotal, setPageTotal] = useState(0)
+    const [page, setPage] = useState(0)
+    const [pageArr, setPageArr] = useState(0)
 
     const useQuery = () => {
         return new URLSearchParams(useLocation().search);
@@ -28,9 +30,31 @@ function UserManagementTable({ history: { replace, location, push } }) {
 
     useEffect(() => {
         (!query || !usersInfo?.users) && onHandleGetUser({ page: query > 0 ? query - 1 : 0, size: pageSize })
-        setPageSize(usersInfo?.pageInfo?.size || pageSize)
-        setPageTotal(usersInfo?.pageInfo?.total || pageTotal)
+        if (usersInfo?.pageInfo) {
+            setPageSize(usersInfo.pageInfo?.size || pageSize)
+            setPageTotal(usersInfo.pageInfo?.total || pageTotal)
+            setPage(usersInfo.pageInfo?.page || page)
+        }
     }, [])
+
+    useEffect(() => {
+        const currentPage = page + 1
+        const totalPageArrLen = Math.ceil(pageTotal / pageSize)
+        const displayPageLen = 3 > totalPageArrLen ? totalPageArrLen : 3
+        let arr = []
+        if (currentPage <= displayPageLen - 1) {
+            // React.$commonTool.devConsole('pagepagepagepage1')
+            arr = new Array(displayPageLen).fill(1).map((el, index) =>  index + 1)
+        } else if ((totalPageArrLen - currentPage) <= displayPageLen - 1) {
+            // React.$commonTool.devConsole('pagepagepagepage2')
+            arr = new Array(displayPageLen).fill(1).map((el, index) => totalPageArrLen - displayPageLen + index + 1)
+        } else {
+            // React.$commonTool.devConsole('pagepagepagepage3')
+            arr = new Array(displayPageLen).fill(1).map((el, index) => page + index)
+        }
+        // React.$commonTool.devConsole('pagepagepagepage4', arr)
+        setPageArr(arr)
+    }, [page, pageSize, pageTotal])
 
     const onHandleGetUser = (params) => {
         api()
@@ -39,6 +63,7 @@ function UserManagementTable({ history: { replace, location, push } }) {
                 if (res.success) {
                     setUsersInfo({ users: [...res.data.content], pageInfo: { ...params, total: res.data.total } })
                     setPageTotal(res.data.total)
+                    setPage(params.page)
                     toast.success(res.message);
                 } else {
                     toast.error(res.message);
@@ -89,18 +114,18 @@ function UserManagementTable({ history: { replace, location, push } }) {
             </table>
             <div className="my-2 flex justify-center">
                 {
-                    pageTotal > 0 && new Array(Math.ceil(pageTotal / pageSize)).fill(1).map((el, index) => {
+                    pageTotal > 0 && pageArr.map((el, index) => {
                         return (
                             <span
                                 key={index}
                                 className={React.$commonTool.createClassName({
-                                    "text-blue-500": (usersInfo?.pageInfo?.page || 0) === index,
-                                    "text-black": (usersInfo?.pageInfo?.page || 0) !== index,
+                                    "text-blue-500": (usersInfo?.pageInfo?.page || 0) === el - 1,
+                                    "text-black": (usersInfo?.pageInfo?.page || 0) !== el - 1,
                                     "mx-2": true,
                                     "cursor-pointer": true
                                 })}
-                                onClick={() => onHandleGetUser({ page: index, size: pageSize })}
-                            >{index + 1}</span>
+                                onClick={() => onHandleGetUser({ page: el - 1, size: pageSize })}
+                            >{el}</span>
                         )
                     })
                 }
