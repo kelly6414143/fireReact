@@ -44,7 +44,7 @@ function UserManagementTable({ history: { replace, location, push } }) {
         let arr = []
         if (currentPage <= displayPageLen - 1) {
             // React.$commonTool.devConsole('pagepagepagepage1')
-            arr = new Array(displayPageLen).fill(1).map((el, index) =>  index + 1)
+            arr = new Array(displayPageLen).fill(1).map((el, index) => index + 1)
         } else if ((totalPageArrLen - currentPage) <= displayPageLen - 1) {
             // React.$commonTool.devConsole('pagepagepagepage2')
             arr = new Array(displayPageLen).fill(1).map((el, index) => totalPageArrLen - displayPageLen + index + 1)
@@ -112,22 +112,34 @@ function UserManagementTable({ history: { replace, location, push } }) {
                     }
                 </tbody>
             </table>
-            <div className="my-2 flex justify-center">
+            <div className="my-2 flex justify-center items-center">
                 {
-                    pageTotal > 0 && pageArr.map((el, index) => {
-                        return (
-                            <span
-                                key={index}
-                                className={React.$commonTool.createClassName({
-                                    "text-blue-500": (usersInfo?.pageInfo?.page || 0) === el - 1,
-                                    "text-black": (usersInfo?.pageInfo?.page || 0) !== el - 1,
-                                    "mx-2": true,
-                                    "cursor-pointer": true
-                                })}
-                                onClick={() => onHandleGetUser({ page: el - 1, size: pageSize })}
-                            >{el}</span>
-                        )
-                    })
+                    <>
+                        {page > 0 && <span
+                            className="cursor-pointer mr-1 text-sm"
+                            onClick={() => onHandleGetUser({ page: page - 1, size: pageSize })}
+                        >{"<"}</span>}
+                        {pageTotal > 0 && pageArr.map((el, index) => {
+                            return (
+                                <span
+                                    key={index}
+                                    className={React.$commonTool.createClassName({
+                                        "text-blue-500": (usersInfo?.pageInfo?.page || 0) === el - 1,
+                                        "text-black": (usersInfo?.pageInfo?.page || 0) !== el - 1,
+                                        "mx-2": true,
+                                        "cursor-pointer": true
+                                    })}
+                                    onClick={() => onHandleGetUser({ page: el - 1, size: pageSize })}
+                                >{el}</span>
+                            )
+                        })}
+                        {page + 1 < Math.ceil(pageTotal / pageSize) && <span
+                            className="cursor-pointer ml-1 text-sm"
+                            onClick={() => onHandleGetUser({ page: page + 1, size: pageSize })}
+                        >{">"}
+                        </span>
+                        }
+                    </>
                 }
             </div>
         </>
