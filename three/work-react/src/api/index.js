@@ -4,7 +4,7 @@ import axios from 'axios'
 function axiosMaps() {
 
     const instance = axios.create({
-        baseURL: 'https://l8-upgrade-apis.vercel.app/'
+        baseURL: 'https://l8-upgrade-apis.herokuapp.com/'
     });
 
 
