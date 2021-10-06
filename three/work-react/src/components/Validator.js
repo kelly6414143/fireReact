@@ -17,8 +17,11 @@ export default function Validator({
 
     useEffect(() => {
         setIsShowValidator(isShowDialog)
-        isShowDialog && createValidCode()
     }, [isShowDialog])
+
+    useEffect(()=>{
+        isShowValidator && createValidCode()
+    }, [isShowValidator])
 
     useEffect(() => {
         if (isValid) {
@@ -36,6 +39,7 @@ export default function Validator({
         const validArr = await onHandleRandomVal()
         const tempCompareMethod = Math.ceil(Math.random() * 2)
         const parentNode = document.getElementById('valid_code')
+        React.$commonTool.devConsole(parentNode)
         const effectiveTop = parentNode.clientHeight - 50
         const effectiveLeft = parentNode.clientWidth - 50
         const div1 = document.createElement('div')
