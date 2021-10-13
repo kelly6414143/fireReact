@@ -4,7 +4,7 @@ import routerConfig from '@/route/routerConfig'
 // import Provider from '@/stores/context'
 // import DrawerProvider from '@/stores/DrawerContext'
 // import UsersRowProvider from '@/stores/UsersRowContext'
-import UsersTableContext from '@/stores/UsersTableContext'
+// import UsersTableContext from '@/stores/UsersTableContext'
 import './App.css';
 
 
@@ -14,11 +14,11 @@ function App() {
     // <Provider>
     //   <DrawerProvider>
     //     <UsersRowProvider>
-          <UsersTableContext>
+          // <UsersTableContext>
             <Router>
               {renderRoutes({ routes: routerConfig })}
             </Router>
-           </UsersTableContext>
+          //  </UsersTableContext>
     //     </UsersRowProvider>
     //   </DrawerProvider>
     // </Provider>

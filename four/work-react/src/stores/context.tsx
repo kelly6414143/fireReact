@@ -1,23 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, ReactNode } from 'react';
 
 import { createContext } from 'use-context-selector';
 
-type userInfostate = Array<any>
+interface IUserInfostate {
+  name?: string;
+}
 
 interface IContextProps {
-  userInfo: userInfostate;
-  drawerInfo: userInfostate;
+  getUserInfo?: IUserInfostate;
+  setUserInfo: (c:IUserInfostate) => void;
 }
 
 export const context = createContext({} as IContextProps);
 
-const Provider = ({ children }:any) => {
-    const [userInfo, setUserInfo] = useState({});
-    const [drawerInfo, setDrawerInfo] = useState({})
+
+const Provider: React.FC = ({ children }:{children?: ReactNode}) => {
+    const [userInfo, setUserInfo] = useState<IUserInfostate>({});
 
     const store = {
-        userInfo : [userInfo, setUserInfo],
-        drawerInfo: [drawerInfo, setDrawerInfo]
+        getUserInfo: userInfo,
+        setUserInfo: setUserInfo
     }
 
     return (

@@ -27,12 +27,12 @@ const DrawerProvider = ({ children }: any) => {
   const [drawerInfo, setDrawerInfo] = useState({ isExtendDrawer: true })
   const [menuInfo, setMenuInfo] = useState([])
 
-  const clearMenuInfoChildShow = () => {
-    menuInfo.forEach((el: ImenuObject) => {
-      el.isShowChild = false
-    });
-    setMenuInfo(menuInfo);
-  }
+  // const clearMenuInfoChildShow = () => {
+  //   menuInfo.forEach((el: ImenuObject) => {
+  //     el.isShowChild = false
+  //   });
+  //   setMenuInfo(menuInfo);
+  // }
 
   const store = {
     getDrawerInfo: drawerInfo,

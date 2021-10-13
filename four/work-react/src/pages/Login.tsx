@@ -12,7 +12,7 @@ export default function Login() {
     const [formObject, setFormObject] = useState({})
     const [isShowValidator, setIsShowValidator] = useState(false)
 
-    const setUserInfo = useContextSelector(context, state => state.userInfo[1]);
+    const setUserInfo = useContextSelector(context, state => state.setUserInfo);
 
     // const [form] = Form.useForm()
     // const usernameRules = { required: true, msg: "必須是信箱", validator: 'email' }
