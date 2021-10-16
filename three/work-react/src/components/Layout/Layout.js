@@ -8,20 +8,23 @@ import Form, { Field } from "@components/Form";
 import Input from "@components/InputItem/Input";
 import Header from "./Header/index";
 import Drawer from "./Drawer";
+import {devConsole, createContext} from "@/tools"
 
-export default function Wrapper({
+function Wrapper({
   history: { replace },
   routes,
   children,
+  setUserInfo,
+  userInfo,
 }) {
 
   const [form] = Form.useForm()
   const nameRules = { required: true, msg: "請輸入使用者名稱" }
 
   const [isShowDialog, setIsShowDialog] = useState(false);
+  
 
-  const userInfo = useContextSelector(context, (state) => state.userInfo[0]);
-  const setUserInfo = useContextSelector(context, (state) => state.userInfo[1]);
+  devConsole("layout userInfo", userInfo)
 
   useEffect(() => {
     if (userInfo.name) return;
@@ -108,3 +111,5 @@ export default function Wrapper({
     </div>
   );
 }
+
+export default createContext(context)(Wrapper)

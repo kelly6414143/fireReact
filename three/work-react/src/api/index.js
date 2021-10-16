@@ -10,7 +10,7 @@ function axiosMaps() {
   // 添加请求拦截器
   instance.interceptors.request.use(
     (config) => {
-      React.$commonTool.devConsole("request", config);
+      // React.$commonTool.devConsole("request", config);
       //設定請求頭
       config.headers = {
         ContentType: "application/x-www-form-urlencoded",
@@ -19,7 +19,7 @@ function axiosMaps() {
       return config;
     },
     (error) => {
-      React.$commonTool.devConsole("requesterr", error);
+      // React.$commonTool.devConsole("requesterr", error);
       // 对请求错误做些什么
       return Promise.reject(error);
     }
@@ -29,7 +29,7 @@ function axiosMaps() {
   instance.interceptors.response.use(
     (response) => {
       // 对响应数据做点什么
-      React.$commonTool.devConsole("response", response);
+      // React.$commonTool.devConsole("response", response);
       const { data, status } = response;
       if (status) {
         switch (status) {
@@ -52,7 +52,7 @@ function axiosMaps() {
       }
     },
     (error) => {
-      React.$commonTool.devConsole("responseerr", error);
+      // React.$commonTool.devConsole("responseerr", error);
       // 对响应错误做点什么
       return Promise.reject(error);
     }
@@ -62,11 +62,11 @@ function axiosMaps() {
     return instance
       .post(url, param, header)
       .then((res) => {
-        React.$commonTool.devConsole("postres", res);
+        // React.$commonTool.devConsole("postres", res);
         return res;
       })
       .catch((error) => {
-        React.$commonTool.devConsole("posterr", error);
+        // React.$commonTool.devConsole("posterr", error);
         return error.response.data;
       });
   };
@@ -75,11 +75,11 @@ function axiosMaps() {
     return instance
       .get(url, { params: params, headers: header })
       .then((res) => {
-        React.$commonTool.devConsole("postres", res);
+        // React.$commonTool.devConsole("postres", res);
         return res;
       })
       .catch((error) => {
-        React.$commonTool.devConsole("posterr", error);
+        // React.$commonTool.devConsole("posterr", error);
         return error.response.data;
       });
   };
@@ -88,11 +88,11 @@ function axiosMaps() {
     return instance
       .put(url, param, header)
       .then((res) => {
-        React.$commonTool.devConsole("postres", res);
+        // React.$commonTool.devConsole("postres", res);
         return res;
       })
       .catch((error) => {
-        React.$commonTool.devConsole("posterr", error);
+        // React.$commonTool.devConsole("posterr", error);
         return error.response.data;
       });
   };

@@ -9,7 +9,7 @@ function Header({
   containerClassName,
 }) {
 
-  const userInfo = useContextSelector(context, (state) => state.userInfo[0]);
+  const userInfo = useContextSelector(context, (state) => state.userInfo);
 
   const drawerInfo = useContextSelector(
     DrawerContext,

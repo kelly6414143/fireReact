@@ -6,11 +6,10 @@ export const context = createContext(null);
 
 const Provider = ({ children }) => {
     const [userInfo, setUserInfo] = useState({});
-    const [drawerInfo, setDrawerInfo] = useState({})
 
     const store = {
-        userInfo : [userInfo, setUserInfo],
-        drawerInfo: [drawerInfo, setDrawerInfo]
+        userInfo: userInfo,
+        setUserInfo: setUserInfo
     }
 
     return (
@@ -19,6 +18,8 @@ const Provider = ({ children }) => {
       </context.Provider>
     );
   };
+
+  console.log("context", context)
 
 export default Provider;
 

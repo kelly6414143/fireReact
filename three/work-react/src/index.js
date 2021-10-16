@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import '@/index.css';
 import App from '@/App';
 import reportWebVitals from '@/reportWebVitals';
-import commonTool, {devConsole} from '@/tools/index'
+import commonTool from '@/tools/index'
 
 React.$commonTool = commonTool
 

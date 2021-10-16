@@ -9,8 +9,8 @@ export default function News() {
     const [userImage, setUserImage] = useState("")
     const [userPreviewImage, setPreviewImage] = useState("")
 
-    const userInfo = useContextSelector(context, state => state.userInfo[0]);
-    const setUserInfo = useContextSelector(context, state => state.userInfo[1]);
+    const userInfo = useContextSelector(context, state => state.userInfo);
+    const setUserInfo = useContextSelector(context, state => state.setUserInfo);
 
     const onChangeImage = (e) => {
         if (e.target.files && e.target.files[0]) {

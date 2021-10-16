@@ -7,7 +7,7 @@ import toast from "@components/Toast/Toast";
 import api from "@api/index";
 
 export default function Register({ history }) {
-  const setUserInfo = useContextSelector(context, (state) => state.userInfo[1]);
+  const setUserInfo = useContextSelector(context, (state) => state.setUserInfo);
 
   const [form] = Form.useForm();
   const usernameRules = {
