@@ -1,15 +1,21 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect,Dispatch, SetStateAction } from "react"
 import { useContextSelector } from 'use-context-selector';
 import { context } from '@/stores/context'
 // import Form, { Field } from "@components/Form";
-// import Input from "@components/InputItem/Input";
-// import toast from "@components/Toast/Toast"
+import Input from "@components/InputItem/Input";
+import toast from "@components/Toast/Toast"
 // import Validator from "@components/Validator"
-// import api from '@api/index'
+import api from '@api/index'
 
 export default function Login() {
 
-    const [formObject, setFormObject] = useState({})
+    interface IFormObject {
+        username: string;
+        password: string
+    }
+
+
+    const [formObject, setFormObject]= useState({})
     const [isShowValidator, setIsShowValidator] = useState(false)
 
     const setUserInfo = useContextSelector(context, state => state.setUserInfo);
