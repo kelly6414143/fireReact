@@ -2,6 +2,7 @@ import { withRouter } from "react-router-dom";
 import { useContextSelector } from "use-context-selector";
 import { context } from "@/stores/context";
 import { DrawerContext } from "../DrawerContext"
+import { devConsole } from "@/tools";
 
 interface IProps {
   history: {[index:string]:any};

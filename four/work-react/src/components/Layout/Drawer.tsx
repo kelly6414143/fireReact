@@ -187,7 +187,7 @@ function Drawer({history}:IProps) {
     width: "200px",
   };
 
-  const transitionStyles = {
+  const transitionStyles:{[index:string]:any} = {
     entering: { width: "200px" },
     entered: { width: "200px" },
     exiting: { width: "75px" },
@@ -201,7 +201,7 @@ function Drawer({history}:IProps) {
           className="border-r border-gray-800"
           style={{
             ...defaultStyle,
-            // ...transitionStyles[state],
+            ...transitionStyles[state],
           }}
         >
           {drawerContent && drawerContent.map((el:any, index) => (
