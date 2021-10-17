@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from 'react'
-
 interface IProps {
-    value : string;
+    value? : string;
     type: string;
     label: string;
-    required: boolean;
-    placeholder: string;
-    onChange: ()=>void;
+    required?: boolean;
+    placeholder?: string;
+    onChange?: ()=>void;
     labelClassName?: string;
     err?: string;
 }

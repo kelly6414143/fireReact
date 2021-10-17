@@ -1,0 +1,41 @@
+.dialog-enter {
+  opacity: 0;
+}
+.dialog-enter-active {
+  transition: opacity 500ms ease-in-out;
+  opacity: 1;
+}
+.enter-done {
+  opacity: 1;
+}
+.dialog-exit {
+  opacity: 1;
+}
+.dialog-exit-active {
+  opacity: 0;
+  transition: opacity 500ms ease-in-out;
+}
+.exit-done {
+  opacity: 0;
+}
+
+/* .dialog-enter {
+  transform: translate(100%, 0);
+}
+.dialog-enter-active {
+  transition: transform 500ms ease-in-out;
+  transform: translate(0, 0);
+}
+.enter-done {
+  transform: translate(0, 0);
+}
+.dialog-exit {
+  transform: translate(0, 0);
+}
+.dialog-exit-active {
+  transition: transform 500ms ease-in-out;
+  transform: translate(100%, 0);
+}
+.exit-done {
+  transform: translate(100%, 0);
+} */
