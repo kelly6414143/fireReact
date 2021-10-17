@@ -2,9 +2,9 @@ import React, { Suspense, lazy, Children, ReactNode } from "react";
 
 const Layout = lazy(() => import("@components/Layout/Layout"));
 const Home = lazy(() => import("@/pages/Home"));
-// const ProfileSetting = lazy(() => import("@/pages/ProfileSetting"));
-// const UserManagementRow = lazy(() => import("@/pages/users/UserManagementRow"));
-// const UserManagementTable = lazy(() => import("@/pages/users/UserManagementTable"));
+const ProfileSetting = lazy(() => import("@/pages/ProfileSetting"));
+const UserManagementRow = lazy(() => import("@/pages/users/UserManagementRow"));
+const UserManagementTable = lazy(() => import("@/pages/users/UserManagementTable"));
 // const UserDetail = lazy(() => import("@/pages/users/UserDetail"));
 const Register = lazy(() => import("@/pages/Register"));
 const Login = lazy(() => import("@/pages/Login"));
@@ -68,48 +68,48 @@ const routerConfig = [
       );
     },
   },
-  // {
-  //   path: "/account/profile-setting",
-  //   isPrivate: true,
-  //   component: (props) => {
-  //     return (
-  //       <AsyncComponent>
-  //         <Layout {...props}>
-  //           <ProfileSetting {...props} />
-  //         </Layout>
-  //       </AsyncComponent>
-  //     );
-  //   },
-  // },
-  // {
-  //   path: "/users/tableDisplay",
-  //   isPrivate: true,
-  //   exact: true,
-  //   // auth: "ADMIN",
-  //   component: (props) => {
-  //     return (
-  //       <AsyncComponent>
-  //         <Layout {...props}>
-  //           <UserManagementTable {...props} />
-  //         </Layout>
-  //       </AsyncComponent>
-  //     );
-  //   },
-  // },
-  // {
-  //   path: "/users/rowDisplay",
-  //   isPrivate: true,
-  //   // auth: "ADMIN",
-  //   component: (props) => {
-  //     return (
-  //       <AsyncComponent>
-  //         <Layout {...props}>
-  //           <UserManagementRow {...props} />
-  //         </Layout>
-  //       </AsyncComponent>
-  //     );
-  //   },
-  // },
+  {
+    path: "/account/profile-setting",
+    isPrivate: true,
+    component: (props:ILayoutProps) => {
+      return (
+        <AsyncComponent>
+          <Layout {...props}>
+            <ProfileSetting/>
+          </Layout>
+        </AsyncComponent>
+      );
+    },
+  },
+  {
+    path: "/users/tableDisplay",
+    isPrivate: true,
+    exact: true,
+    // auth: "ADMIN",
+    component: (props:ILayoutProps) => {
+      return (
+        <AsyncComponent>
+          <Layout {...props}>
+            <UserManagementTable {...props} />
+          </Layout>
+        </AsyncComponent>
+      );
+    },
+  },
+  {
+    path: "/users/rowDisplay",
+    isPrivate: true,
+    // auth: "ADMIN",
+    component: (props:ILayoutProps) => {
+      return (
+        <AsyncComponent>
+          <Layout {...props}>
+            <UserManagementRow {...props} />
+          </Layout>
+        </AsyncComponent>
+      );
+    },
+  },
   // {
   //   path: "/users/userDetail",
   //   isPrivate: true,

@@ -1,20 +1,24 @@
 import React, { useState } from 'react';
 import { createContext } from 'use-context-selector';
 
-type userInfostate = Array<any>
-
-interface IContextProps {
+interface IUserInfo {
+    users?: [{ [index: string]: any }];
+    pageInfo?: {[index:string]:any};
 }
 
+interface IContextProps {
+    getUsersInfo: IUserInfo;
+    setUsersInfo: ({}:{}) => void;
+}
 
 export const UsersTableContext = createContext({} as IContextProps);
 
 const UsersTableProvider = ({ children }: any) => {
-    const [usersInfo, setUsersInfo] = useState({})
+    const [usersInfo, setUsersInfo] = useState<IUserInfo>({})
 
     const store = {
-        // getUsersInfo: usersInfo,
-        // setUsersInfo: setUsersInfo
+        getUsersInfo: usersInfo,
+        setUsersInfo: setUsersInfo
     }
 
     return (
