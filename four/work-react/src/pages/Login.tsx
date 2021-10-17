@@ -6,7 +6,6 @@ import Input from "@components/InputItem/Input";
 import toast from "@components/Toast/Toast"
 import Validator from "@components/Validator"
 import api from '@api/index'
-import { devConsole } from "@/tools";
 
 interface IProps {
     history :{[index:string]:any}
@@ -18,8 +17,6 @@ export default function Login({history}:IProps) {
     const [isShowValidator, setIsShowValidator] = useState<boolean>(false)
 
     const setUserInfo = useContextSelector(context, state => state.setUserInfo);
-
-    devConsole("dd",useContextSelector(context, state => state.setUserInfo))
 
     const [form] = useForm()
     // const usernameRules = { required: true, msg: "必須是信箱", validator: 'email' }
@@ -44,14 +41,13 @@ export default function Login({history}:IProps) {
         }).then(res => {
             if (res.success) {
                 toast.success(res.message)
-                // setUserInfo((data:{}) => ({ ...data, ...res.data, token: res.token }))
+                setUserInfo((data:{}) => ({ ...data, ...res.data, token: res.token }))
                 sessionStorage.setItem('userToken', res.token)
                 sessionStorage.setItem('role', res.data.role)
-                devConsole("history", history)
                 history.push('./')
             } else {
                 toast.error(res.message)
-                // setUserInfo((data:{}) => ({ ...data, token: '' }))
+                setUserInfo((data:{}) => ({ ...data, token: '' }))
             }
             setIsShowValidator(false)
         })

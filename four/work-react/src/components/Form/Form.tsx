@@ -2,10 +2,16 @@ import { ReactNode } from "react";
 import FieldContext from "@/components/Form/FieldContext";
 import useForm from "./useForm";
 
+interface IData {
+    username: string;
+    password: string;
+    name?: string;
+  }
+
 interface IForm {
     form?: HTMLInputElement |null;
     children?: ReactNode;
-    onFinish?: ({})=>void;
+    onFinish?: ({}:IData)=>void;
     onFinishFailed?: ()=>void;
     className?: string;
 }

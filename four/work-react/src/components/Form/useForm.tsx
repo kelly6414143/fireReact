@@ -14,6 +14,10 @@ interface IError {
   err?: string;
 }
 
+// type TForm = 
+
+// type TUseForm = [HTMLInputElement | null | {[index:string]:any}]
+
 class FormStore {
 
   store: {[key: string]: any}
@@ -217,8 +221,8 @@ class FormStore {
   };
 }
 
-export default function useForm(form?: HTMLInputElement | null) {
-  const formRef = useRef<HTMLInputElement | null>();
+export default function useForm(form?: any):any{
+  const formRef = useRef<any>();
 
   if (!formRef.current) {
     if (form) {

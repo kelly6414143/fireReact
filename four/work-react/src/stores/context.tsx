@@ -18,8 +18,6 @@ export const context = createContext({} as IContextProps);
 const Provider: React.FC = ({ children }:{children?: ReactNode}) => {
     const [userInfo, setUserInfo] = useState<IUserInfostate>({});
 
-    devConsole("setUSE")
-
     const store = {
         getUserInfo: userInfo,
         setUserInfo: setUserInfo

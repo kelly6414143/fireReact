@@ -6,7 +6,7 @@ import React, { Suspense, lazy, Children } from "react";
 // const UserManagementRow = lazy(() => import("@/pages/users/UserManagementRow"));
 // const UserManagementTable = lazy(() => import("@/pages/users/UserManagementTable"));
 // const UserDetail = lazy(() => import("@/pages/users/UserDetail"));
-// const Register = lazy(() => import("@/pages/Register"));
+const Register = lazy(() => import("@/pages/Register"));
 const Login = lazy(() => import("@/pages/Login"));
 
 const AsyncComponent = ({children}:any) => {
@@ -17,20 +17,24 @@ const AsyncComponent = ({children}:any) => {
   )
 } 
 
+interface IProps {
+  history :{[index:string]:any}
+}
+
 const routerConfig = [
-  // {
-  //   path: "/register",
-  //   component: (props) => {
-  //     return (
-  //       <AsyncComponent>
-  //         <Register {...props} />
-  //       </AsyncComponent>
-  //     );
-  //   },
-  // },
+  {
+    path: "/register",
+    component: (props:IProps) => {
+      return (
+        <AsyncComponent>
+          <Register {...props} />
+        </AsyncComponent>
+      );
+    },
+  },
   {
     path: "/login",
-    component: (props:any) => {
+    component: (props:IProps) => {
       return (
         <AsyncComponent>
           <Login {...props} />
@@ -42,7 +46,7 @@ const routerConfig = [
     path: "/",
     exact: true,
     isPrivate: true,
-    component: (props:any) => {
+    component: (props:IProps) => {
       return (
         <AsyncComponent>
           <>HOME</>
@@ -111,7 +115,7 @@ const routerConfig = [
   {
     path: "/*",
     name: "404",
-    component: (props:any) => {
+    component: (props:IProps) => {
       return (
         <AsyncComponent>
           <div>
