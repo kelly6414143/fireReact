@@ -1,22 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { useContextSelector } from "use-context-selector";
 import { context } from "@/stores/context";
-import Form, { Field , useForm} from "@components/Form";
+import Form, { Field, useForm } from "@components/Form";
 import Input from "@components/InputItem/Input";
 import toast from "@components/Toast/Toast";
 import api from "@api/index";
 
 interface IProps {
-  history :{[index:string]:any}
+  history: { [index: string]: any }
 }
 
 interface IRegisterData {
-  username: string;
-  password: string;
+  username?: string;
+  password?: string;
   name?: string;
 }
 
-export default function Register({ history }:IProps) {
+export default function Register({ history }: IProps) {
   const setUserInfo = useContextSelector(context, (state) => state.setUserInfo);
 
   const [form] = useForm();
@@ -28,19 +28,19 @@ export default function Register({ history }:IProps) {
   const passwordRules = {
     required: true,
     msg: "4-8字元；首尾必須是英文；中間必須是數字",
-    validator: (val:string) => /^[A-z]\d{2,6}[A-z]$/.test(val),
+    validator: (val: string) => /^[A-z]\d{2,6}[A-z]$/.test(val),
   };
   const comfirmPasswordRules = {
     required: true,
     msg: "與密碼不同",
-    validator: (val:string) => val === form.getFieldValue("password"),
+    validator: (val: string) => val === form.getFieldValue("password"),
   };
 
-  const onFinish = (data:IRegisterData) => {
+  const onFinish = (data: IRegisterData) => {
     onSubmit(data);
   };
 
-  const onSubmit = async (data:IRegisterData) => {
+  const onSubmit = async (data: IRegisterData) => {
     api()
       .post(
         "/api/register",
@@ -65,7 +65,7 @@ export default function Register({ history }:IProps) {
       });
   };
 
-  const onLogin = (data:IRegisterData) => {
+  const onLogin = (data: IRegisterData) => {
     api()
       .post(
         "/api/login",
@@ -82,13 +82,13 @@ export default function Register({ history }:IProps) {
       .then((res) => {
         if (res.success) {
           toast.success(res.message);
-          setUserInfo((data:{}) => ({ ...data, ...res.data, token: res.token }));
+          setUserInfo((data: {}) => ({ ...data, ...res.data, token: res.token }));
           sessionStorage.setItem("userToken", res.token);
           sessionStorage.setItem("role", res.data.role);
           history.push("./");
         } else {
           toast.error(res.message);
-          setUserInfo((data:{}) => ({ ...data, token: "" }));
+          setUserInfo((data: {}) => ({ ...data, token: "" }));
         }
       });
   };

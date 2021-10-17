@@ -78,7 +78,7 @@ function axiosMaps() {
       });
   };
 
-  const get = (url: string, params: {}, header: {}) => {
+  const get = (url: string, params?: {}, header?: {}) => {
     return instance
       .get(url, { params: params, headers: header })
       .then((res) => {

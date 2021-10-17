@@ -3,16 +3,16 @@ import FieldContext from "@/components/Form/FieldContext";
 import useForm from "./useForm";
 
 interface IData {
-    username: string;
-    password: string;
+    username?: string;
+    password?: string;
     name?: string;
-  }
+}
 
 interface IForm {
-    form?: HTMLInputElement |null;
+    form?: HTMLInputElement | null;
     children?: ReactNode;
-    onFinish?: ({}:IData)=>void;
-    onFinishFailed?: ()=>void;
+    onFinish?: ({}: IData) => void;
+    onFinishFailed?: () => void;
     className?: string;
 }
 
@@ -22,7 +22,7 @@ export default function Form({
     onFinish = () => { },
     onFinishFailed = () => { },
     className
-}:IForm) {
+}: IForm) {
     const [formInstance] = new (useForm as any)(form)
 
     formInstance.setCallbacks({

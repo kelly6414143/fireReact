@@ -1,7 +1,7 @@
-import React, { Suspense, lazy, Children } from "react";
+import React, { Suspense, lazy, Children, ReactNode } from "react";
 
-// const Layout = lazy(() => import("@components/Layout/Layout"));
-// const Home = lazy(() => import("@/pages/Home"));
+const Layout = lazy(() => import("@components/Layout/Layout"));
+const Home = lazy(() => import("@/pages/Home"));
 // const ProfileSetting = lazy(() => import("@/pages/ProfileSetting"));
 // const UserManagementRow = lazy(() => import("@/pages/users/UserManagementRow"));
 // const UserManagementTable = lazy(() => import("@/pages/users/UserManagementTable"));
@@ -18,7 +18,19 @@ const AsyncComponent = ({children}:any) => {
 } 
 
 interface IProps {
-  history :{[index:string]:any}
+  history: { [index: string]: any };
+  routes: { [index: string]: any };
+  children: ReactNode;
+  setUserInfo?: ({ }) => void;
+  userInfo?: { [index: string]: any };
+}
+
+interface ILayoutProps {
+  history: { [index: string]: any };
+  routes: { [index: string]: any };
+  children: ReactNode;
+  setUserInfo: ({ }) => void;
+  userInfo: { [index: string]: any };
 }
 
 const routerConfig = [
@@ -46,13 +58,12 @@ const routerConfig = [
     path: "/",
     exact: true,
     isPrivate: true,
-    component: (props:IProps) => {
+    component: (props:ILayoutProps) => {
       return (
         <AsyncComponent>
-          <>HOME</>
-          {/* <Layout {...props}>
+          <Layout {...props}>
             <Home {...props} />
-          </Layout> */}
+          </Layout>
         </AsyncComponent>
       );
     },

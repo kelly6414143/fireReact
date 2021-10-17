@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { ReactNode } from "react";
 import ReactDOM from "react-dom";
 import { CSSTransition } from "react-transition-group";
 import "./dialog.css";
@@ -20,7 +21,7 @@ export default function Dialog({
     onHandleClose && onHandleClose();
   };
 
-  return ReactDOM.createPortal(
+  return isShow && ReactDOM.createPortal(
     <CSSTransition in={isShow} timeout={500} classNames="dialog" unmountOnExit>
       <div
         className={`absolute inset-0 bg-black bg-opacity-20 flex flex-col justify-center items-center`}

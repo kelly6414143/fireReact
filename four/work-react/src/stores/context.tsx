@@ -5,10 +5,12 @@ import { createContext } from 'use-context-selector';
 
 interface IUserInfostate {
   name?: string;
+  imgLink?: string;
+  username?: string;
 }
 
 interface IContextProps {
-  getUserInfo?: IUserInfostate;
+  getUserInfo: IUserInfostate;
   setUserInfo: ({}:{}) => void;
 }
 
