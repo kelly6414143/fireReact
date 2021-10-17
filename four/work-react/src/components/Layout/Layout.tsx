@@ -15,7 +15,7 @@ interface IProps {
   routes: { [index: string]: any };
   children: ReactNode;
   setUserInfo: ({ }) => void;
-  userInfo: { [index: string]: any }
+  getUserInfo: { [index: string]: any }
 }
 
 interface IData {
@@ -29,7 +29,7 @@ const Wrapper = ({
   routes,
   children,
   setUserInfo,
-  userInfo,
+  getUserInfo,
 }: IProps) => {
 
   const [form] = useForm()
@@ -37,11 +37,8 @@ const Wrapper = ({
 
   const [isShowDialog, setIsShowDialog] = useState(false);
 
-
-  devConsole("layout userInfo", userInfo)
-
   useEffect(() => {
-    if (userInfo && userInfo.name) return;
+    if (getUserInfo && getUserInfo.name) return;
     api().get("/api/user")
       .then((res) => {
         if (res.success) {
@@ -76,7 +73,7 @@ const Wrapper = ({
       .then((res) => {
         if (res.success) {
           toast.success(res.message);
-          setUserInfo({ ...userInfo, name: data.name })
+          setUserInfo({ ...getUserInfo, name: data.name })
           setIsShowDialog(false);
         } else {
           toast.error(res.message);
@@ -94,28 +91,28 @@ const Wrapper = ({
           <Drawer />
           <div className="w-full p-3">{children}</div>
         </div>
-        {/* <Modal
-        isShowModal={isShowDialog}
-        isShowHeader={true}
-        title={"使用者資料補全"}
-        onBackDropClick={() => { return false }}
-        ModalActions={<></>}
-      >
-        <Form className="text-center" form={form} onFinish={onFinish}>
-          <Field name="name" rules={[nameRules]}>
-            <Input
-              label="使用者名稱"
-              type="text"
-              placeholder={"對其他用戶顯示的名稱"}
+        <Modal
+          isShowModal={isShowDialog}
+          isShowHeader={true}
+          title={"使用者資料補全"}
+          onBackDropClick={() => { return false }}
+          ModalActions={<></>}
+        >
+          <Form className="text-center" form={form} onFinish={onFinish}>
+            <Field name="name" rules={[nameRules]}>
+              <Input
+                label="使用者名稱"
+                type="text"
+                placeholder={"對其他用戶顯示的名稱"}
+              />
+            </Field>
+            <input
+              type="submit"
+              className=" bg-blue-500 rounded-lg px-3 py-1 m-1 text-white"
+              value={'確定'}
             />
-          </Field>
-          <input
-            type="submit"
-            className=" bg-blue-500 rounded-lg px-3 py-1 m-1 text-white"
-            value={'確定'}
-          />
-        </Form>
-      </Modal> */}
+          </Form>
+        </Modal>
       </div>
     </DrawerProvider>
   );

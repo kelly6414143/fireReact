@@ -3,6 +3,18 @@ import { ReactNode } from "react";
 import ReactDOM from "react-dom";
 import SimpleDialog from "./SimpleDialog"
 
+interface IProp {
+    isShowModal: boolean;
+    title: string;
+    children: ReactNode;
+    onHandleClose?: ()=>void;
+    onHandleComfirm?: ()=>void;
+    onHandleCancle?: ()=>void;
+    ModalActions:ReactNode;
+    isShowHeader?:boolean;
+    onBackDropClick: ()=>{};
+}
+
 export default function Modal({
     isShowModal,
     title,
@@ -13,7 +25,7 @@ export default function Modal({
     ModalActions,
     isShowHeader,
     onBackDropClick
-}) {
+}:IProp) {
 
     const [isShow, setIsShow] = useState(false)
 
@@ -36,7 +48,9 @@ export default function Modal({
         setIsShow(false)
     }
 
-    return isShow && el && ReactDOM.createPortal(
+    const el: HTMLElement | null = document.getElementById("dialog")
+
+    return isShow && el ? ReactDOM.createPortal(
         <SimpleDialog
             isShowDialog={isShow}
             onBackDropClick={onBackDropClick}
@@ -54,6 +68,6 @@ export default function Modal({
                     <button className="bg-gray-500 rounded-lg px-3 py-1 m-1 text-white" onClick={onCancle}>取消</button>
                 </div>
             }
-        </SimpleDialog>, document.getElementById("dialog")
-    );
+        </SimpleDialog>, el
+    ): null
 }

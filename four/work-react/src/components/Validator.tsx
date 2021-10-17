@@ -1,15 +1,22 @@
 import React, { useState, useEffect } from "react";
 import SimpleDialog from "./SimpleDialog"
-import {devConsole} from "@/tools/index"
+import { devConsole } from "@/tools/index"
 
-let validArr = []
+let validArr:number[] = []
+
+interface IProps {
+    isShowDialog: boolean;
+    onSuccessCallback: () => void;
+    onHandleClose: () => void;
+    contentClassName: string;
+}
 
 export default function Validator({
     isShowDialog,
     onSuccessCallback,
     onHandleClose,
     contentClassName
-}) {
+}: IProps) {
 
     const [isFinishedValidator, setIsFinishedValidator] = useState(false)
     const [isValid, setIsValid] = useState(false)
@@ -20,7 +27,7 @@ export default function Validator({
         setIsShowValidator(isShowDialog)
     }, [isShowDialog])
 
-    useEffect(()=>{
+    useEffect(() => {
         isShowValidator && createValidCode()
     }, [isShowValidator])
 
@@ -37,10 +44,11 @@ export default function Validator({
     }, [isValid])
 
     const createValidCode = async () => {
-        const validArr = await onHandleRandomVal()
+        const validArr:any = await onHandleRandomVal()
         const tempCompareMethod = Math.ceil(Math.random() * 2)
         const parentNode = document.getElementById('valid_code')
         devConsole(parentNode)
+        if (!parentNode) return
         const effectiveTop = parentNode.clientHeight - 50
         const effectiveLeft = parentNode.clientWidth - 50
         const div1 = document.createElement('div')
@@ -74,14 +82,14 @@ export default function Validator({
         while (arr.length < 3) {
             const val = Math.ceil(Math.random() * 99)
             if (!map.has(val)) {
-                map.set(val)
+                map.set(val,val)
                 arr.push(val)
             }
         }
         resolve(arr)
     })
 
-    const getValidCodeVal = (parentDom, dom, method) => {
+    const getValidCodeVal = (parentDom:HTMLElement, dom:HTMLElement, method:number) => {
         let isValid = false
         validArr.push(parseFloat(dom.innerText))
         parentDom.removeChild(dom)

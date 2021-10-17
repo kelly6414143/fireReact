@@ -4,13 +4,21 @@ import ReactDOM from "react-dom";
 import { CSSTransition } from "react-transition-group";
 import "./dialog.css";
 
+interface IProps {
+  isShowDialog: boolean;
+  children: ReactNode;
+  onHandleClose?: () => void;
+  onBackDropClick?: () => void;
+  contentClassName?: string;
+}
+
 export default function Dialog({
   isShowDialog,
   children,
-  onHandleClose = ()=>{},
+  onHandleClose = () => { },
   onBackDropClick,
   contentClassName,
-}) {
+}: IProps) {
   const [isShow, setIsShow] = useState(false); // 彈窗的存在週期
 
   useEffect(() => {
@@ -21,7 +29,9 @@ export default function Dialog({
     onHandleClose && onHandleClose();
   };
 
-  return isShow && ReactDOM.createPortal(
+  const el: HTMLElement | null = document.getElementById("dialog")
+
+  return isShow && el ?ReactDOM.createPortal(
     <CSSTransition in={isShow} timeout={500} classNames="dialog" unmountOnExit>
       <div
         className={`absolute inset-0 bg-black bg-opacity-20 flex flex-col justify-center items-center`}
@@ -37,6 +47,6 @@ export default function Dialog({
         </div>
       </div>
     </CSSTransition>,
-    document.getElementById("dialog")
-  );
+    el
+  ):null
 }

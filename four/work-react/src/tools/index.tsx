@@ -6,7 +6,7 @@ interface IProps {
     routes: { [index: string]: any };
     children: ReactNode;
     setUserInfo: ({}) => void;
-    userInfo: {[index:string]:any};
+    getUserInfo: {[index:string]:any};
 }
 
 export const devConsole = (...parameter: any[]) => {

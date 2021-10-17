@@ -22,7 +22,7 @@ interface IProps {
   routes: { [index: string]: any };
   children: ReactNode;
   setUserInfo?: ({ }) => void;
-  userInfo?: { [index: string]: any };
+  getUserInfo?: { [index: string]: any };
 }
 
 interface ILayoutProps {
@@ -30,7 +30,7 @@ interface ILayoutProps {
   routes: { [index: string]: any };
   children: ReactNode;
   setUserInfo: ({ }) => void;
-  userInfo: { [index: string]: any };
+  getUserInfo: { [index: string]: any };
 }
 
 const routerConfig = [
